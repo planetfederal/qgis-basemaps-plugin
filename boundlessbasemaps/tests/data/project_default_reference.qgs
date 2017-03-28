@@ -1,0 +1,576 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="2.18.4">
+  <title></title>
+  <autotransaction active="0"/>
+  <evaluateDefaultValues active="0"/>
+  <layer-tree-group expanded="1" checked="Qt::Checked" name="">
+    <customproperties/>
+    <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX">
+      <customproperties/>
+  </layer-tree-layer-->
+    <layer-tree-layer expanded="1" checked="Qt::Checked" id="Boundless_BasemapXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Satellite_StreetsXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_SatelliteXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_OutdoorsXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_LightXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_DarkXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_StreetsXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Street_Vector_TilesXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Traffic_Vector_TilesXXXXXXX">
+              <customproperties/>
+          </layer-tree-layer>
+</layer-tree-group>
+  <relations/>
+  <mapcanvas>
+    <units>meters</units>
+    <extent>
+      <xmin>-21039383.75992870703339577</xmin>
+      <ymin>-17665183.74920467659831047</ymin>
+      <xmax>21039383.75992871448397636</xmax>
+      <ymax>17665183.74920468404889107</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <projections>1</projections>
+    <destinationsrs>
+      <spatialrefsys>
+        <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+        <srsid>3857</srsid>
+        <srid>3857</srid>
+        <authid>EPSG:3857</authid>
+        <description>WGS 84 / Pseudo Mercator</description>
+        <projectionacronym>merc</projectionacronym>
+        <ellipsoidacronym>WGS84</ellipsoidacronym>
+        <geographicflag>false</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+    <layer_coordinate_transform_info>
+      <!--layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="alayerXXXXXXX"/-->
+      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Boundless_BasemapXXXXXXX"/>
+    </layer_coordinate_transform_info>
+  </mapcanvas>
+  <layer-tree-canvas>
+    <custom-order enabled="0">
+      <!--item>alayer20170322140634990</item-->
+      <item>Boundless_BasemapXXXXXXX</item><item>Mapbox_Satellite_StreetsXXXXXXX</item><item>Mapbox_SatelliteXXXXXXX</item><item>Mapbox_OutdoorsXXXXXXX</item><item>Mapbox_LightXXXXXXX</item><item>Mapbox_DarkXXXXXXX</item><item>Mapbox_StreetsXXXXXXX</item><item>Mapbox_Street_Vector_TilesXXXXXXX</item><item>Mapbox_Traffic_Vector_TilesXXXXXXX</item>
+    </custom-order>
+  </layer-tree-canvas>
+  <legend updateDrawingOrder="true">
+    <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="alayer" showFeatureCount="0">
+      <filegroup open="true" hidden="false">
+        <!--legendlayerfile isInOverview="0" layerid="alayerXXXXXXX"/-->
+        <legendlayerfile isInOverview="0" layerid="Boundless_BasemapXXXXXXX"/>
+      </filegroup>
+    </legendlayer>
+  </legend>
+  <projectlayers>
+      <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Boundless_BasemapXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/boundless/osm/%7Bz%7D/%7Bx%7D/%7B-y%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Boundless Basemap</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_Satellite_StreetsXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/satellite-streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Satellite Streets</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_SatelliteXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/satellite/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Satellite</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_OutdoorsXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/outdoors/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Outdoors</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_LightXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/light/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Light</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_DarkXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/dark/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Dark</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_StreetsXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Streets</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_Street_Vector_TilesXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/mvt/%7Bz%7D/%7Bx%7D/%7By%7D.pbf&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Street Vector Tiles</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+   <extent>
+    <xmin>-20037508.34278924390673637</xmin>
+    <ymin>-20037508.34278925508260727</ymin>
+    <xmax>20037508.34278924390673637</xmax>
+    <ymax>20037508.34278924390673637</ymax>
+   </extent>
+   <id>Mapbox_Traffic_Vector_TilesXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/traffic/%7Bz%7D/%7Bx%7D/%7By%7D.pbf&amp;authcfg=YYYYYY</datasource>
+   <keywordList>
+    <value></value>
+   </keywordList>
+   <layername>Mapbox Traffic Vector Tiles</layername>
+   <srs>
+    <spatialrefsys>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
+     <ellipsoidacronym>WGS84</ellipsoidacronym>
+     <geographicflag>false</geographicflag>
+    </spatialrefsys>
+   </srs>
+   <customproperties>
+    <property key="identify/format" value="Undefined"/>
+   </customproperties>
+   <provider>wms</provider>
+   <noData>
+    <noDataList bandNo="1" useSrcNoData="0"/>
+   </noData>
+   <map-layer-style-manager current="">
+    <map-layer-style name=""/>
+   </map-layer-style-manager>
+   <pipe>
+    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
+     <rasterTransparency/>
+    </rasterrenderer>
+    <brightnesscontrast brightness="0" contrast="0"/>
+    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+    <rasterresampler maxOversampling="2"/>
+   </pipe>
+   <blendMode>0</blendMode>
+  </maplayer>
+  </projectlayers>
+  <properties>
+    <WMSContactPerson type="QString"></WMSContactPerson>
+    <Variables>
+      <variableNames type="QStringList"/>
+      <variableValues type="QStringList"/>
+    </Variables>
+    <WMSOnlineResource type="QString"></WMSOnlineResource>
+    <WMSUseLayerIDs type="bool">false</WMSUseLayerIDs>
+    <WMSContactOrganization type="QString"></WMSContactOrganization>
+    <WMSKeywordList type="QStringList">
+      <value></value>
+    </WMSKeywordList>
+    <WFSUrl type="QString"></WFSUrl>
+    <Paths>
+      <Absolute type="bool">false</Absolute>
+    </Paths>
+    <WMSServiceTitle type="QString"></WMSServiceTitle>
+    <WFSLayers type="QStringList"/>
+    <WMSContactMail type="QString"></WMSContactMail>
+    <PositionPrecision>
+      <DecimalPlaces type="int">2</DecimalPlaces>
+      <Automatic type="bool">true</Automatic>
+      <DegreeFormat type="QString">MU</DegreeFormat>
+    </PositionPrecision>
+    <WCSUrl type="QString"></WCSUrl>
+    <WMSContactPhone type="QString"></WMSContactPhone>
+    <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
+    <WMSServiceAbstract type="QString"></WMSServiceAbstract>
+    <WMSContactPosition type="QString"></WMSContactPosition>
+    <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
+    <Measure>
+      <Ellipsoid type="QString">WGS84</Ellipsoid>
+    </Measure>
+    <WMSPrecision type="QString">8</WMSPrecision>
+    <WMSSegmentizeFeatureInfoGeometry type="bool">false</WMSSegmentizeFeatureInfoGeometry>
+    <WFSTLayers>
+      <Insert type="QStringList"/>
+      <Update type="QStringList"/>
+      <Delete type="QStringList"/>
+    </WFSTLayers>
+    <Gui>
+      <SelectionColorBluePart type="int">4</SelectionColorBluePart>
+      <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+      <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+      <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+      <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+      <SelectionColorGreenPart type="int">0</SelectionColorGreenPart>
+      <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+    </Gui>
+    <Digitizing>
+      <DefaultSnapToleranceUnit type="int">1</DefaultSnapToleranceUnit>
+      <LayerSnappingList type="QStringList"/>
+      <LayerSnappingEnabledList type="QStringList"/>
+      <SnappingMode type="QString">current_layer</SnappingMode>
+      <AvoidIntersectionsList type="QStringList"/>
+      <LayerSnappingToleranceUnitList type="QStringList"/>
+      <LayerSnapToList type="QStringList"/>
+      <DefaultSnapType type="QString">to vertex and segment</DefaultSnapType>
+      <DefaultSnapTolerance type="double">10</DefaultSnapTolerance>
+      <LayerSnappingToleranceList type="QStringList"/>
+    </Digitizing>
+    <Identify>
+      <disabledLayers type="QStringList"/>
+    </Identify>
+    <Macros>
+      <pythonCode type="QString"></pythonCode>
+    </Macros>
+    <WMSAccessConstraints type="QString">None</WMSAccessConstraints>
+    <WCSLayers type="QStringList"/>
+    <Legend>
+      <filterByMap type="bool">false</filterByMap>
+    </Legend>
+    <SpatialRefSys>
+      <ProjectCRSProj4String type="QString">+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</ProjectCRSProj4String>
+      <ProjectCrs type="QString">EPSG:3857</ProjectCrs>
+      <ProjectCRSID type="int">3857</ProjectCRSID>
+      <ProjectionsEnabled type="int">1</ProjectionsEnabled>
+    </SpatialRefSys>
+    <DefaultStyles>
+      <Fill type="QString"></Fill>
+      <Line type="QString"></Line>
+      <Marker type="QString"></Marker>
+      <RandomColors type="bool">true</RandomColors>
+      <AlphaInt type="int">255</AlphaInt>
+      <ColorRamp type="QString"></ColorRamp>
+    </DefaultStyles>
+    <WMSFees type="QString">conditions unknown</WMSFees>
+    <WMSImageQuality type="int">90</WMSImageQuality>
+    <Measurement>
+      <DistanceUnits type="QString">meters</DistanceUnits>
+      <AreaUnits type="QString">m2</AreaUnits>
+    </Measurement>
+    <WMSUrl type="QString"></WMSUrl>
+  </properties>
+  <visibility-presets/>
+</qgis>

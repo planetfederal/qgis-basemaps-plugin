@@ -1,0 +1,51 @@
+[
+	{"name":"enabled",
+	 "label": "Use Boundless Basemaps",
+	 "description": "Add Boundless base maps to all new projects",
+	 "type": "bool",
+	 "default": true,
+	 "group": "Basemaps"
+	},
+	{"name":"selected",
+	  "label": "Reserved: selected basemaps",
+	 "description": "#-separated string",
+	 "type": "string",
+	 "default": "",
+	 "group": "Basemaps"
+	},
+	{"name":"authcfg",
+	 "label": "Auth config for Basemaps",
+	 "description": "OAuth2 authentication configuration for BCS",
+	 "type": "authcfg",
+	 "default": "",
+	 "group": "Basemaps authentication"
+    },
+	{"name":"token_uri",
+	 "label": "BCS Token URI",
+	 "description": "URI for Token authentication",
+	 "type": "string",
+	 "default": "https://api.dev.boundlessgeo.io/v1/token/oauth/",
+	 "group": "Basemaps advanced configuration"
+    },
+	{"name":"maps_uri",
+	 "label": "BCS available maps URI",
+	 "description": "URI to get the available base maps",
+	 "type": "string",
+	 "default": "http://api.boundlessgeo.io/v1/basemaps/",
+	 "group": "Basemaps advanced configuration"
+    },
+	{"name":"first_time_setup_done",
+	 "label": "First time configuration run",
+	 "description": "The boundlessbasemaps plugin first time configuration has been executed",
+	 "type": "bool",
+	 "default": false,
+	 "group": "Basemaps advanced configuration"
+ },
+	{"name":"project_template",
+	 "label": "Override template for default project boundlessbasemaps",
+	 "description": "This path is normally blank but can be set to an alternative template for the default project",
+	 "type": "string",
+	 "default": "",
+	 "group": "Basemaps advanced configuration"
+	}
+]
