@@ -35,7 +35,7 @@ from qgis.gui import QgsFileDownloader
 AUTHCFG_NAME = "Boundless BCS API OAuth2"
 
 
-def is_supported():
+def bcs_supported():
     """Check wether current QGIS installation has all requirements to
     consume BCS services, current checks
     - OAuth2 auth plugin is available
@@ -165,8 +165,14 @@ def create_default_project(available_maps, project_template, authcfg=None):
         return None
 
 
+def layer_is_supported(lyr):
+    """Check wether the layer is supported by QGIS or by this plugin
+    inverted y and vector tiles are not supported"""
+    return lyr['endpoint'].find('{-y}') == -1 and lyr['endpoint'][-3:] != 'pbf'
+
+
 def get_available_maps(maps_uri):
-    """Fetch the list of available maps from BCS endpoint, this endpoint
+    """Fetch the list of available and QGIS supported maps from BCS endpoint,
     apparently this API method does not require auth"""
     # For testing purposes, we can also access to a json file directly
     if not maps_uri.startswith('http'):
@@ -179,4 +185,4 @@ def get_available_maps(maps_uri):
     with open(t) as f:
         j = json.load(f)
     os.unlink(t)
-    return j
+    return [l for l in j if layer_is_supported(l)]

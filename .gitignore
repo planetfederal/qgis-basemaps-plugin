@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
-#ext-libs/
+ext-libs/
+
+oauth2.json
 
 __pycache__/
 *.py[cod]

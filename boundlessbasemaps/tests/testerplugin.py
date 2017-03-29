@@ -93,22 +93,24 @@ class BasemapsTest(unittest.TestCase):
         return tpl
 
     def test_utils_get_available_maps_online(self):
-        self.assertTrue(utils.is_supported())
+        self.assertTrue(utils.bcs_supported())
         maps = utils.get_available_maps(MAPS_URI)
         names = [m['name'] for m in maps]
         names.sort()
-        self.assertEqual(names, [u'Boundless Basemap',
+        self.assertEqual(names, [
+                                 #u'Boundless Basemap',# unsupported
                                  u'Mapbox Dark',
                                  u'Mapbox Light',
                                  u'Mapbox Outdoors',
                                  u'Mapbox Satellite',
                                  u'Mapbox Satellite Streets',
-                                 u'Mapbox Street Vector Tiles',
+                                 #u'Mapbox Street Vector Tiles', # unsupported
                                  u'Mapbox Streets',
-                                 u'Mapbox Traffic Vector Tiles'])
+                                 #u'Mapbox Traffic Vector Tiles'# unsupported
+                                 ])
 
     def test_utils_get_available_maps(self):
-        self.assertTrue(utils.is_supported())
+        self.assertTrue(utils.bcs_supported())
         maps = utils.get_available_maps(os.path.join(self.data_dir,
                                                      'basemaps.json'))
         names = [m['name'] for m in maps]
@@ -125,7 +127,7 @@ class BasemapsTest(unittest.TestCase):
 
     def test_utils_create_default_auth_project(self):
         """Use a auth project template"""
-        self.assertTrue(utils.is_supported())
+        self.assertTrue(utils.bcs_supported())
         prj = utils.create_default_project(
             utils.get_available_maps(
                 os.path.join(self.data_dir, 'basemaps.json')),
@@ -184,7 +186,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertIsNone(w.settings.get('authcfg'))
         self.assertFalse(w.settings.get('use_current_authcfg'))
         self.assertEquals(w.settings.get('selected'),
-                          u'Mapbox Satellite Streets#Mapbox Streets#Mapbox Street Vector Tiles')
+                          u'Mapbox Satellite Streets#Mapbox Streets')
         self.assertEquals(w.settings.get('username'), 'my_username')
         self.assertEquals(w.settings.get('password'), 'my_password')
 
