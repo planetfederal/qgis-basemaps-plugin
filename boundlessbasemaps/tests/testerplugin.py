@@ -218,6 +218,31 @@ class BasemapsTest(unittest.TestCase):
         self.assertEquals(w.settings.get('username'), 'my_username')
         self.assertEquals(w.settings.get('password'), 'my_password')
 
+    def test_wizard_pre_defined_credentials(self):
+        """Test the wizard dialog"""
+        # Forge some settings:
+        settings = {
+            "token_uri": TOKEN_URI,
+            "maps_uri": MAPS_URI,
+            "authcfg": utils.setup_oauth('username', 'password', TOKEN_URI, None)
+        }
+        w = SetupWizard(settings)
+        w.show()
+        # Go to map selection page
+        w.next()
+        ms = w.currentPage()
+        # Check Streets
+        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
+        w.next()
+        w.accept()
+        # Check all
+        self.assertTrue(w.settings.get('enabled'))
+        self.assertEquals(w.settings.get('authcfg'), settings['authcfg'])
+        self.assertTrue(w.settings.get('use_current_authcfg'))
+        self.assertEquals(w.settings.get('selected'),
+                          u'Mapbox Satellite Streets#Mapbox Streets')
+        self.assertIsNone(w.settings.get('username'))
+        self.assertIsNone(w.settings.get('password'))
 
 
 def pluginSuite():

@@ -102,10 +102,15 @@ class IntroPage(WizardPage):
 
     def nextId(self):
         if self.optin.isChecked():
-            # If we do have a valid auth configuration let's ask the user
+            # If we do have a valid auth configuration, check it
             try:
-                if utils.get_authcfg(self.settings.get('authcfg')):
+                # if it's valid, jump to map selection
+                if self.settings.get('authcfg') is not None and utils.get_authcfg(self.settings.get('authcfg')):
+                    return SetupWizard.MapSelectionPage
+                # If invalid or None: search for a valid config
+                elif utils.get_authcfg(self.settings.get('authcfg')):
                     return SetupWizard.ConfirmCredentialsPage
+                # Nothing suitable? Invalidate the setting
                 del(self.settings['authcfg'])
             except KeyError:
                 pass
