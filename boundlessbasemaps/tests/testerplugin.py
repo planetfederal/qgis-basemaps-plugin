@@ -218,8 +218,8 @@ class BasemapsTest(unittest.TestCase):
         self.assertEquals(w.settings.get('username'), 'my_username')
         self.assertEquals(w.settings.get('password'), 'my_password')
 
-    def test_wizard_pre_defined_credentials(self):
-        """Test the wizard dialog"""
+    def test_wizard_pre_defined_authcfg(self):
+        """Test the wizard dialog with valid authcfg"""
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
@@ -243,6 +243,65 @@ class BasemapsTest(unittest.TestCase):
                           u'Mapbox Satellite Streets#Mapbox Streets')
         self.assertIsNone(w.settings.get('username'))
         self.assertIsNone(w.settings.get('password'))
+
+
+    def test_wizard_pre_defined_invalid_authcfg(self):
+        """Test the wizard dialog with invalid authcfg"""
+        # Forge some settings:
+        settings = {
+            "token_uri": TOKEN_URI,
+            "maps_uri": MAPS_URI,
+            "authcfg": 'fffffff',
+        }
+        w = SetupWizard(settings)
+        w.show()
+        # Go to CredentialsPage
+        w.next()
+        w.currentPage().username.setText('my_username')
+        w.currentPage().password.setText('my_password')
+        # Go to map selection page
+        w.next()
+        ms = w.currentPage()
+        # Check Streets
+        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
+        w.next()
+        w.accept()
+        # Check all
+        self.assertTrue(w.settings.get('enabled'))
+        self.assertIsNone(w.settings.get('authcfg'))
+        self.assertFalse(w.settings.get('use_current_authcfg'))
+        self.assertEquals(w.settings.get('selected'),
+                          u'Mapbox Satellite Streets#Mapbox Streets')
+        self.assertEquals(w.settings.get('username'), 'my_username')
+        self.assertEquals(w.settings.get('password'), 'my_password')
+
+
+    def test_wizard_pre_defined_username_password(self):
+        """Test the wizard dialog with predefined username and password"""
+        # Forge some settings:
+        settings = {
+            "token_uri": TOKEN_URI,
+            "maps_uri": MAPS_URI,
+            "username": 'my_username',
+            "password": 'my_password',
+        }
+        w = SetupWizard(settings)
+        w.show()
+        # Go to map selection page
+        w.next()
+        ms = w.currentPage()
+        # Check Streets
+        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
+        w.next()
+        w.accept()
+        # Check all
+        self.assertTrue(w.settings.get('enabled'))
+        self.assertIsNone(w.settings.get('authcfg'))
+        self.assertFalse(w.settings.get('use_current_authcfg'))
+        self.assertEquals(w.settings.get('selected'),
+                          u'Mapbox Satellite Streets#Mapbox Streets')
+        self.assertEquals(w.settings.get('username'), settings.get('username'))
+        self.assertEquals(w.settings.get('password'), settings.get('password'))
 
 
 def pluginSuite():
