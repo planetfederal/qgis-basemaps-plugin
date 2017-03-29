@@ -49,7 +49,7 @@ class Basemaps:
         try:
             from .tests import testerplugin
             from qgistester.tests import addTestModule
-            addTestModule(testerplugin, "boundlessbasemaps")
+            addTestModule(testerplugin, "Boundless Basemaps")
         except Exception as e:
             raise e
 

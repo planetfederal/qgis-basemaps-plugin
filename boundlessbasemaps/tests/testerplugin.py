@@ -26,8 +26,6 @@ except:
     pass
 
 from boundlessbasemaps import utils
-# Patch utils default name for credentials
-utils.AUTHCFG_NAME = "Boundless BCS API OAuth2 - TEST"
 from boundlessbasemaps.gui.setupwizard import SetupWizard
 from qgis.core import QgsProject, QgsApplication, QgsAuthManager
 from qgis.PyQt.QtCore import QFileInfo
@@ -71,6 +69,10 @@ class BasemapsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        # Patch utils default name for credentials
+        cls.old_authcfg_name = utils.AUTHCFG_NAME
+        utils.AUTHCFG_NAME = "Boundless BCS API OAuth2 - TEST"
+
         cls.data_dir = os.path.join(os.path.dirname(__file__), 'data')
         cls.tpl_path = os.path.join(
             os.path.dirname(__file__), os.path.pardir, 'project_default.qgs.tpl')
@@ -87,6 +89,7 @@ class BasemapsTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        utils.AUTHCFG_NAME = cls.old_authcfg_name
         if AUTHDBDIR is not None:
             try:
                 shutil.rmtree(AUTHDBDIR)
