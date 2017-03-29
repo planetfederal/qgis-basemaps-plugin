@@ -174,7 +174,7 @@ def layer_is_supported(lyr):
     """Check wether the layer is supported by QGIS or by this plugin
     inverted y and vector tiles are not supported"""
     return (lyr['endpoint'].find('{-y}') == -1 and
-            lyr['endpoint'][-3:] != 'pbf' and
+            lyr['tileFormat'] == 'PNG' and
             lyr['standard'] == 'XYZ')
 
 
