@@ -32,10 +32,8 @@ from qgis.core import QgsApplication
 from qgis.gui import QgsMessageBar
 
 from qgiscommons.settings import addSettingsMenu, removeSettingsMenu, readSettings, pluginSetting, setPluginSetting
-from qgiscommons.gui import addAboutMenu, removeAboutMenu
 
 from boundlessbasemaps import utils
-
 
 PROJECT_DEFAULT_TEMPLATE = os.path.join(os.path.dirname(__file__), 'project_default.qgs.tpl')
 
@@ -142,7 +140,7 @@ class Basemaps:
         self.iface.addPluginToMenu("Basemaps", self.setupAction)
 
         addSettingsMenu("Basemaps")
-        addAboutMenu("Basemaps")
+        #  addAboutMenu("Basemaps") Not working!
 
     def unload(self):
         try:
@@ -155,7 +153,7 @@ class Basemaps:
         self.iface.removePluginMenu("boundlessbasemaps", self.helpAction)
         self.iface.removePluginMenu("boundlessbasemaps", self.setupAction)
         removeSettingsMenu("Basemaps")
-        removeAboutMenu("Basemaps")
+        # removeAboutMenu("Basemaps")
 
     def run(self):
         self.setup()

@@ -46,12 +46,7 @@
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="alayer" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
-        <!--legendlayerfile isInOverview="0" layerid="alayer20170322140634990" visible="1"/-->
-        #LEGEND_LAYER_FILE#
-      </filegroup>
-    </legendlayer>
+    #LEGEND_LAYER#
   </legend>
   <projectlayers>
     #MAPLAYERS#

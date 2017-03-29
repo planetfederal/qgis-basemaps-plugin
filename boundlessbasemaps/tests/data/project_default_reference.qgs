@@ -8,25 +8,34 @@
     <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX">
       <customproperties/>
   </layer-tree-layer-->
-    <layer-tree-layer expanded="1" checked="Qt::Checked" id="Boundless_BasemapXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Satellite_StreetsXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_SatelliteXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_OutdoorsXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_LightXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_DarkXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_StreetsXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Street_Vector_TilesXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Traffic_Vector_TilesXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer>
+    
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="Boundless_BasemapXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Satellite_StreetsXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_SatelliteXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_OutdoorsXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_LightXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_DarkXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_StreetsXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Street_Vector_TilesXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Traffic_Vector_TilesXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
 </layer-tree-group>
   <relations/>
   <mapcanvas>
@@ -64,12 +73,52 @@
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="alayer" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
-        <!--legendlayerfile isInOverview="0" layerid="alayerXXXXXXX"/-->
-        <legendlayerfile isInOverview="0" layerid="Boundless_BasemapXXXXXXX"/>
-      </filegroup>
-    </legendlayer>
+    
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Boundless Basemap" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Boundless_BasemapXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Satellite Streets" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_Satellite_StreetsXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Satellite" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_SatelliteXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Outdoors" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_OutdoorsXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Light" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_LightXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Dark" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_DarkXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Streets" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_StreetsXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Street Vector Tiles" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_Street_Vector_TilesXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Traffic Vector Tiles" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Mapbox_Traffic_Vector_TilesXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
   </legend>
   <projectlayers>
       <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">

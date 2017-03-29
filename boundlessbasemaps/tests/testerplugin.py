@@ -135,7 +135,7 @@ class BasemapsTest(unittest.TestCase):
             'abc123')
         prj = self._standard_id(prj)
         # Re-generate reference:
-        # with open(os.path.join(self.data_dir, 'project_default_reference.qgs'), 'wb+') as f:
+        #with open(os.path.join(self.data_dir, 'project_default_reference.qgs'), 'wb+') as f:
         #    f.write(prj)
         self.assertEqual(
             prj, open(os.path.join(self.data_dir, 'project_default_reference.qgs'), 'rb').read())
@@ -147,7 +147,7 @@ class BasemapsTest(unittest.TestCase):
                 os.path.join(self.data_dir, 'basemaps_no_auth.json')),
             self.tpl_path)
         # Re-generate reference:
-        # with open(os.path.join(self.data_dir, 'project_default_no_auth_reference.qgs'), 'wb+') as f:
+        #with open(os.path.join(self.data_dir, 'project_default_no_auth_reference.qgs'), 'wb+') as f:
         #    f.write(self._standard_id(prj))
         tmp = tempfile.mktemp('.qgs')
         with open(tmp, 'wb+') as f:

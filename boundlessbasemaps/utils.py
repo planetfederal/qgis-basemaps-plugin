@@ -128,37 +128,42 @@ def create_default_project(available_maps, project_template, authcfg=None):
     """Create a default project from a template and return it as a string"""
     layers = []
     for m in available_maps:
-        if m['standard'] == 'XYZ':
-            connstring = u'type=xyz&url=%(url)s'
-            if authcfg is not None:
-                connstring += u'&authcfg=%(authcfg)s'
-            layer = QgsRasterLayer(connstring % {
-                'url': urllib2.quote(m['endpoint']),
-                'authcfg': authcfg,
-                'name': m['name'],
-            }, m['name'], 'wms')
-            layers.append(layer)
-        else:
-            # TODO: log unsupported?
-            pass
+        connstring = u'type=xyz&url=%(url)s'
+        if authcfg is not None:
+            connstring += u'&authcfg=%(authcfg)s'
+        layer = QgsRasterLayer(connstring % {
+            'url': urllib2.quote(m['endpoint']),
+            'authcfg': authcfg,
+            'name': m['name'],
+        }, m['name'], 'wms')
+        layers.append(layer)
     if len(layers):
         xml = QgsMapLayer.asLayerDefinition(layers)
         maplayers = "\n".join(xml.toString().split("\n")[3:-3])
         layer_tree_layer = ""
         custom_order = ""
-        legend_layer_file = ""
+        legend_layer = ""
         layer_coordinate_transform = ""
+        is_first = True
         for layer in layers:
+            values =  {'name': layer.name(), 'id': layer.id(), 'visible': ('1' if is_first else '0'), 'checked': ('Qt::Checked'  if is_first else 'Qt::Unchecked')}
             custom_order += "<item>%s</item>" % layer.id()
-            layer_tree_layer += """<layer-tree-layer expanded="1" checked="Qt::Checked" id="%s" name="%s">
-              <customproperties/>
-          </layer-tree-layer>""" % (layer.id(), layer.name())
-            legend_layer_file += '<legendlayerfile isInOverview="0" layerid="%s" visible="1"/>' % layer.id()
+            layer_tree_layer += """
+            <layer-tree-layer expanded="1" checked="%(checked)s" id="%(id)s" name="%(name)s">
+                <customproperties/>
+            </layer-tree-layer>""" % values
+            legend_layer += """
+            <legendlayer drawingOrder="-1" open="true" checked="%(checked)s" name="%(name)s" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="%(id)s" visible="%(visible)s"/>
+              </filegroup>
+            </legendlayer>""" % values
             layer_coordinate_transform += '<layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="%s"/>' % layer.id()
+            is_first = False
         tpl = ""
         with open(project_template, 'rb') as f:
             tpl = f.read()
-        for tag in ['custom_order', 'layer_tree_layer', 'legend_layer_file', 'layer_coordinate_transform', 'maplayers']:
+        for tag in ['custom_order', 'layer_tree_layer', 'legend_layer', 'layer_coordinate_transform', 'maplayers']:
             tpl = tpl.replace("#%s#" % tag.upper(), locals()[tag])
         return tpl
     else:
@@ -168,7 +173,9 @@ def create_default_project(available_maps, project_template, authcfg=None):
 def layer_is_supported(lyr):
     """Check wether the layer is supported by QGIS or by this plugin
     inverted y and vector tiles are not supported"""
-    return lyr['endpoint'].find('{-y}') == -1 and lyr['endpoint'][-3:] != 'pbf'
+    return (lyr['endpoint'].find('{-y}') == -1 and
+            lyr['endpoint'][-3:] != 'pbf' and
+            lyr['standard'] == 'XYZ')
 
 
 def get_available_maps(maps_uri):

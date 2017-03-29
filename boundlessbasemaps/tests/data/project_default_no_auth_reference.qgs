@@ -8,11 +8,13 @@
     <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX">
       <customproperties/>
   </layer-tree-layer-->
-    <layer-tree-layer expanded="1" checked="Qt::Checked" id="OSM_Basemap_AXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer><layer-tree-layer expanded="1" checked="Qt::Checked" id="OSM_Basemap_BXXXXXXX">
-              <customproperties/>
-          </layer-tree-layer>
+    
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="OSM_Basemap_AXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="OSM_Basemap_BXXXXXXX">
+                <customproperties/>
+            </layer-tree-layer>
 </layer-tree-group>
   <relations/>
   <mapcanvas>
@@ -50,12 +52,17 @@
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="alayer" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
-        <!--legendlayerfile isInOverview="0" layerid="alayerXXXXXXX"/-->
-        <legendlayerfile isInOverview="0" layerid="OSM_Basemap_AXXXXXXX"/>
-      </filegroup>
-    </legendlayer>
+    
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="OSM Basemap A" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="OSM_Basemap_AXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="OSM Basemap B" showFeatureCount="0">
+              <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="OSM_Basemap_BXXXXXXX"/>
+              </filegroup>
+            </legendlayer>
   </legend>
   <projectlayers>
       <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">

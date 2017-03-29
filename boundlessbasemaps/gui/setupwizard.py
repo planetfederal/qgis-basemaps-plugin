@@ -187,6 +187,7 @@ class MapSelectionPage(WizardPage):
                 if self.available_maps is not None and len(self.available_maps):
                     for m in self.available_maps:
                         w = QCheckBox("%(name)s" % m)
+                        w.toggled.connect(self.completeChanged.emit)
                         self.map_choices.append(w)
                         w.setChecked((m['name'] in selected) if len(selected) else True)
                         self.maplist_layout.addWidget(w)
@@ -198,6 +199,7 @@ class MapSelectionPage(WizardPage):
                         """Toggle"""
                         for w in self.map_choices:
                             w.setChecked(not w.isChecked())
+                            self.completeChanged.emit()
 
                     self.toggle_btn.clicked.connect(_tg)
                     layout.addWidget(self.toggle_btn)
@@ -276,7 +278,7 @@ class ConclusionPage(WizardPage):
     def initializePage(self):
         if self.field('enabled'):
             self.setSubTitle(self.tr("The Basemaps default project will now be created!"))
-            self.label.setText(self.tr("""You can re-run this setup wizard at any time from the Plugins -> Basemaps -> Setup menu menu"""))
+            self.label.setText(self.tr("""You can re-run this setup wizard at any time from the Plugins -> Basemaps -> Setup menu"""))
         else:
             self.setSubTitle(self.tr("You chose to not use the Basemaps."))
             self.label.setText(self.tr("If you change your mind, you can enable the Basemaps re-running this setup wizard from the Plugins -> Basemaps -> Setup menu"))
@@ -319,7 +321,7 @@ class SetupWizard(QWizard):
     - project_template: optional
 
     Additional returned values in settings:
-    - has_error: this isthe only available setting in case of errors
+    - has_error: this is the only available setting in case of errors
     - available_maps
     - use_current_authcfg
 
