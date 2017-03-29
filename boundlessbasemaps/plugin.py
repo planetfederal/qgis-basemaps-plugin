@@ -50,8 +50,8 @@ class Basemaps:
             from .tests import testerplugin
             from qgistester.tests import addTestModule
             addTestModule(testerplugin, "boundlessbasemaps")
-        except:
-            pass
+        except Exception as e:
+            raise e
 
         try:
             from lessons import addLessonsFolder

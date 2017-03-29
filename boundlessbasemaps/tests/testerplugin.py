@@ -14,10 +14,10 @@ MAPS_URI = "http://api.boundlessgeo.io/v1/basemaps/"
 TOKEN_URI = "https://api.dev.boundlessgeo.io/v1/token/oauth/"
 AUTHDB_MASTERPWD = "pass"
 
-
-AUTHDBDIR = tempfile.mkdtemp()
-os.environ['QGIS_AUTH_DB_DIR_PATH'] = AUTHDBDIR
-
+# To be used by command line tests, when inside QGIS, the AUTHDBDIR
+# is not needed as the auth DB is initialized by QGIS authentication system
+# initialization
+AUTHDBDIR = None
 
 try:
     from qgistester.test import Test
@@ -26,6 +26,8 @@ except:
     pass
 
 from boundlessbasemaps import utils
+# Patch utils default name for credentials
+utils.AUTHCFG_NAME = "Boundless BCS API OAuth2 - TEST"
 from boundlessbasemaps.gui.setupwizard import SetupWizard
 from qgis.core import QgsProject, QgsApplication, QgsAuthManager
 from qgis.PyQt.QtCore import QFileInfo
@@ -38,11 +40,14 @@ def functionalTests():
     except:
         return []
 
+    return [] # or ...
+    # ... define manual tests here:
+
     def sampleMethod(self):
         pass
 
     sampleTest = Test("Sample test")
-    sampleTest.addStep("Sample step", _sampleMethod)
+    sampleTest.addStep("Sample step", sampleMethod)
 
     return [sampleTest]
 
@@ -57,8 +62,12 @@ class BasemapsTest(unittest.TestCase):
                 assert self.authm.removeAuthenticationConfig(c.id())
         if (not self.authm.masterPasswordIsSet()
                 or not self.authm.masterPasswordHashInDb()):
-            msg = 'Failed to store and verify master password in auth db'
-            assert self.authm.setMasterPassword(self.mpass, True), msg
+            if AUTHDBDIR is not None:
+                msg = 'Failed to store and verify master password in auth db'
+                assert self.authm.setMasterPassword(self.mpass, True), msg
+            else:
+                msg = 'Master password is not valid'
+                assert self.authm.setMasterPassword(True), msg
 
     @classmethod
     def setUpClass(cls):
@@ -69,19 +78,20 @@ class BasemapsTest(unittest.TestCase):
         cls.authm = QgsAuthManager.instance()
         assert not cls.authm.isDisabled(), cls.authm.disabledMessage()
 
-        cls.mpass = AUTHDB_MASTERPWD  # master password
-
-        db1 = QFileInfo(cls.authm.authenticationDbPath()).canonicalFilePath()
-        db2 = QFileInfo(AUTHDBDIR + '/qgis-auth.db').canonicalFilePath()
-        msg = 'Auth db temp path does not match db path of manager'
-        assert db1 == db2, msg
+        if AUTHDBDIR is not None:
+            cls.mpass = AUTHDB_MASTERPWD  # master password
+            db1 = QFileInfo(cls.authm.authenticationDbPath()).canonicalFilePath()
+            db2 = QFileInfo(AUTHDBDIR + '/qgis-auth.db').canonicalFilePath()
+            msg = 'Auth db temp path does not match db path of manager'
+            assert db1 == db2, msg
 
     @classmethod
     def tearDownClass(cls):
-        try:
-            shutil.rmtree(AUTHDBDIR)
-        except:
-            pass
+        if AUTHDBDIR is not None:
+            try:
+                shutil.rmtree(AUTHDBDIR)
+            except:
+                pass
 
     def _standard_id(self, tpl):
         """Change the layer ids to XXXXXXXX"""
@@ -93,6 +103,7 @@ class BasemapsTest(unittest.TestCase):
         return tpl
 
     def test_utils_get_available_maps_online(self):
+        """Check available maps online retrieval from BCS endpoint"""
         self.assertTrue(utils.bcs_supported())
         maps = utils.get_available_maps(MAPS_URI)
         names = [m['name'] for m in maps]
@@ -110,6 +121,7 @@ class BasemapsTest(unittest.TestCase):
                                  ])
 
     def test_utils_get_available_maps(self):
+        """Check available maps retrieval from local test json file"""
         self.assertTrue(utils.bcs_supported())
         maps = utils.get_available_maps(os.path.join(self.data_dir,
                                                      'basemaps.json'))
@@ -126,7 +138,7 @@ class BasemapsTest(unittest.TestCase):
                                  u'Mapbox Traffic Vector Tiles'])
 
     def test_utils_create_default_auth_project(self):
-        """Use a auth project template"""
+        """Create the default project with authcfg"""
         self.assertTrue(utils.bcs_supported())
         prj = utils.create_default_project(
             utils.get_available_maps(
@@ -157,12 +169,12 @@ class BasemapsTest(unittest.TestCase):
             os.path.join(self.data_dir, 'project_default_no_auth_reference.qgs'), 'rb').read())
 
     def test_create_oauth(self):
-        """Create and authentication configuration"""
+        """Create an authentication configuration"""
         authcfg = utils.setup_oauth('username', 'password', TOKEN_URI, None)
         self.assertIsNotNone(authcfg)
 
     def test_wizard(self):
-        """Test the wizard dialog"""
+        """Test the wizard dialog full workflow"""
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
@@ -324,6 +336,8 @@ def run_all():
 
 
 if __name__ == '__main__':
+    AUTHDBDIR = tempfile.mkdtemp()
+    os.environ['QGIS_AUTH_DB_DIR_PATH'] = AUTHDBDIR
     QgsApplication.setPrefixPath('/usr/', True)
     qgs = QgsApplication([], True)
     qgs.initQgis()
