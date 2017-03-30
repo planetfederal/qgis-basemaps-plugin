@@ -25,6 +25,9 @@ install:
 - sleep 10
 - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker exec -it qgis-testing-environment sh -c "$PIP_EXECUTABLE install paver"
+# alter the settings to prevent first time run
+- docker exec -it qgis-testing-environment sh -c "printf \"[boundlessbasemaps]\nfirst_time_setup_done=true\n\" >> /root/.config/QGIS/QGIS2.conf"
+- docker exec -it qgis-testing-environment sh -c "printf \"[boundlessbasemaps]\nfirst_time_setup_done=true\n\" >> /root/.config/QGIS/QGIS3.conf"
 script:
 - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
 - docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh ${PLUGIN_NAME}.tests.testerplugin"

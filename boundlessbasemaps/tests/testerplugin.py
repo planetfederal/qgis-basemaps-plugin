@@ -61,7 +61,7 @@ class BasemapsTest(unittest.TestCase):
                 assert self.authm.removeAuthenticationConfig(c.id())
         if (not self.authm.masterPasswordIsSet()
                 or not self.authm.masterPasswordHashInDb()):
-            if AUTHDBDIR is not None:
+            if AUTHDBDIR is not None or not self.authm.masterPasswordHashInDb():
                 msg = 'Failed to store and verify master password in auth db'
                 assert self.authm.setMasterPassword(self.mpass, True), msg
             else:
@@ -76,9 +76,9 @@ class BasemapsTest(unittest.TestCase):
         cls.authcfg = None
         cls.authm = QgsAuthManager.instance()
         assert not cls.authm.isDisabled(), cls.authm.disabledMessage()
+        cls.mpass = AUTHDB_MASTERPWD  # master password
 
         if AUTHDBDIR is not None:
-            cls.mpass = AUTHDB_MASTERPWD  # master password
             db1 = QFileInfo(cls.authm.authenticationDbPath()).canonicalFilePath()
             db2 = QFileInfo(AUTHDBDIR + '/qgis-auth.db').canonicalFilePath()
             msg = 'Auth db temp path does not match db path of manager'
