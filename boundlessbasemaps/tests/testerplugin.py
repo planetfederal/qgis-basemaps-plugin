@@ -13,7 +13,8 @@ import tempfile
 MAPS_URI = "http://api.boundlessgeo.io/v1/basemaps/"
 TOKEN_URI = "https://api.dev.boundlessgeo.io/v1/token/oauth/"
 AUTHDB_MASTERPWD = "pass"
-
+TEST_AUTHCFG_ID = "cone999"  # test id
+TEST_AUTHCFG_NAME = "Boundless BCS API OAuth2 - TEST"
 # To be used by command line tests, when inside QGIS, the AUTHDBDIR
 # is not needed as the auth DB is initialized by QGIS authentication system
 # initialization
@@ -56,7 +57,7 @@ class BasemapsTest(unittest.TestCase):
 
     def setUp(self):
         for c in self.authm.availableAuthMethodConfigs().values():
-            if c.name() == utils.AUTHCFG_NAME:
+            if c.id() == TEST_AUTHCFG_ID:
                 assert self.authm.removeAuthenticationConfig(c.id())
         if (not self.authm.masterPasswordIsSet()
                 or not self.authm.masterPasswordHashInDb()):
@@ -69,10 +70,6 @@ class BasemapsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Patch utils default name for credentials
-        cls.old_authcfg_name = utils.AUTHCFG_NAME
-        utils.AUTHCFG_NAME = "Boundless BCS API OAuth2 - TEST"
-
         cls.data_dir = os.path.join(os.path.dirname(__file__), 'data')
         cls.tpl_path = os.path.join(
             os.path.dirname(__file__), os.path.pardir, 'project_default.qgs.tpl')
@@ -89,7 +86,6 @@ class BasemapsTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        utils.AUTHCFG_NAME = cls.old_authcfg_name
         if AUTHDBDIR is not None:
             try:
                 shutil.rmtree(AUTHDBDIR)
@@ -171,10 +167,9 @@ class BasemapsTest(unittest.TestCase):
         self.assertEqual(self._standard_id(prj), open(
             os.path.join(self.data_dir, 'project_default_no_auth_reference.qgs'), 'rb').read())
 
-    def test_create_oauth(self):
+    def test_utils_create_oauth(self):
         """Create an authentication configuration"""
-        authcfg = utils.setup_oauth('username', 'password', TOKEN_URI, None)
-        self.assertIsNotNone(authcfg)
+        self.assertTrue(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME))
 
     def test_wizard(self):
         """Test the wizard dialog full workflow"""
@@ -236,10 +231,11 @@ class BasemapsTest(unittest.TestCase):
     def test_wizard_pre_defined_authcfg(self):
         """Test the wizard dialog with valid authcfg"""
         # Forge some settings:
+        self.assertTrue(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME))
         settings = {
             "token_uri": TOKEN_URI,
             "maps_uri": MAPS_URI,
-            "authcfg": utils.setup_oauth('username', 'password', TOKEN_URI, None)
+            "authcfg":TEST_AUTHCFG_ID
         }
         w = SetupWizard(settings)
         w.show()

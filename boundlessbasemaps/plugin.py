@@ -37,7 +37,6 @@ from boundlessbasemaps import utils
 
 PROJECT_DEFAULT_TEMPLATE = os.path.join(os.path.dirname(__file__), 'project_default.qgs.tpl')
 
-
 class BasemapsConfigError(Exception):
     """Config step gone wrong"""
     pass
@@ -91,10 +90,10 @@ class Basemaps:
                         # Create the authcfg (or use existing)
                         if (settings.get('use_current_authcfg') and
                                 settings.get('authcfg') is not None and
-                                utils.get_authcfg(settings.get('authcfg')) is not None):
+                                utils.get_oauth_authcfg(settings.get('authcfg')) is not None):
                             authcfg = settings.get('authcfg')
-                        else:
-                            authcfg = utils.setup_oauth(settings.get('username'), settings.get('password'), settings.get('token_uri'), None)
+                        else:  # try with defaults
+                            authcfg = utils.setup_oauth(settings.get('username'), settings.get('password'), settings.get('token_uri'))
                         if authcfg is None:
                             raise BasemapsConfigError(self.tr("Could not find or create a valid authentication configuration!"))
                         # It shouldn't be empty but ...
@@ -124,7 +123,6 @@ class Basemaps:
         setPluginSetting('first_time_setup_done', True)
 
     def initGui(self):
-
         helpIcon = QgsApplication.getThemeIcon('/mActionHelpAPI.png')
         self.helpAction = QAction(helpIcon, "Help...", self.iface.mainWindow())
         self.helpAction.setObjectName("boundlessbasemapsHelp")

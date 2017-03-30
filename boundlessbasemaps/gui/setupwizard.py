@@ -103,18 +103,18 @@ class IntroPage(WizardPage):
     def nextId(self):
         if self.optin.isChecked():
             # If we do have a valid auth configuration, check it
+            # if it's valid, jump to map selection
+            if self.settings.get('authcfg') and utils.get_oauth_authcfg(self.settings.get('authcfg')):
+                return SetupWizard.MapSelectionPage
+            # If invalid or None: search for a valid default config
+            elif utils.get_oauth_authcfg():
+                return SetupWizard.ConfirmCredentialsPage
+            # Nothing suitable? Invalidate the setting
             try:
-                # if it's valid, jump to map selection
-                if self.settings.get('authcfg') is not None and utils.get_authcfg(self.settings.get('authcfg')):
-                    return SetupWizard.MapSelectionPage
-                # If invalid or None: search for a valid config
-                elif utils.get_authcfg(self.settings.get('authcfg')):
-                    return SetupWizard.ConfirmCredentialsPage
-                # Nothing suitable? Invalidate the setting
                 del(self.settings['authcfg'])
             except KeyError:
                 pass
-            if self.settings.get('username') is not None and self.settings.get('password') is not None:
+            if self.settings.get('username') and self.settings.get('password'):
                 return SetupWizard.MapSelectionPage
             else:
                 return SetupWizard.CredentialsPage
@@ -151,11 +151,11 @@ class ConfirmCredentialsPage(WizardPage):
         self.setLayout(layout)
 
     def initializePage(self):
-        authcfg = utils.get_authcfg(self.settings.get('authcfg'))
+        authcfg = utils.get_oauth_authcfg(self.settings.get('authcfg'))
         if authcfg is not None:
             # Store the ID, not the instance!
             self.settings['authcfg'] = authcfg.id()
-            self.label2.setText(self.tr("Current configuration: [%s]<b>%s</b>") % (authcfg.id(), authcfg.name()))
+            self.label2.setText(self.tr("Current configuration: [%s] <b>%s</b>") % (authcfg.id(), authcfg.name()))
         else:
             self.settings['authcfg'] = None
         super(ConfirmCredentialsPage, self).initializePage()

@@ -32,7 +32,9 @@ from qgis.core import (QgsAuthManager, QgsMapLayer, QgsRasterLayer,
 from qgis.PyQt.QtCore import QEventLoop, QUrl, QSettings
 from qgis.gui import QgsFileDownloader
 
-AUTHCFG_NAME = "Boundless BCS API OAuth2"
+
+AUTHCFG_ID = "conect1"  # test id
+AUTHCFG_NAME = "Boundless OAuth2 API"
 
 
 def bcs_supported():
@@ -58,37 +60,33 @@ def unset_default_project():
     settings.setValue('Qgis/newProjectDefault', False)
 
 
-def get_authcfg(authcfg=None):
-    """Check if the given authcfg exists or if it is None, searches for an existing
-    configuration named AUTHCFG_NAME, in any event checks for its validity,
-    return the configuration or None"""
+def get_oauth_authcfg(authcfg_id=AUTHCFG_ID):
+    """Check if the given authcfg_id (or the default) exists, and if it's valid
+    OAuth2, return the configuration or None"""
+    # Handle empty strings
+    if not authcfg_id:
+        authcfg_id = AUTHCFG_ID
     configs = QgsAuthManager.instance().availableAuthMethodConfigs()
-    if authcfg is None or authcfg not in configs:
-        authcfg = None
-        for c in QgsAuthManager.instance().availableAuthMethodConfigs().values():
-            if c.name() == AUTHCFG_NAME:
-                authcfg = c.id()
-                break
-    if authcfg is not None \
-        and configs[authcfg].isValid() \
-        and configs[authcfg].method() == 'OAuth2':
-        return configs[authcfg]
+    if authcfg_id in configs \
+        and configs[authcfg_id].isValid() \
+        and configs[authcfg_id].method() == 'OAuth2':
+        return configs[authcfg_id]
     return None
 
 
-def setup_oauth(username, password, basemaps_token_uri, authcfg):
-    """Setup oauth configuration to access the BCS API
-    return the authcfg id
+def setup_oauth(username, password, basemaps_token_uri, authcfg_id=AUTHCFG_ID, authcfg_name=AUTHCFG_NAME):
+    """Setup oauth configuration to access the BCS API,
+    return authcfg_id on success, None on failure
     """
-    config = {
-     "accessMethod" : '0',
+    cfgjson = {
+     "accessMethod" : 0,
      "apiKey" : "",
      "clientId" : "",
      "clientSecret" : "",
-     "configType" : '1',
-     "grantFlow" : '2',
+     "configType" : 1,
+     "grantFlow" : 2,
      "password" : password,
-     "persistToken" : 'false',
+     "persistToken" : False,
      "redirectPort" : '7070',
      "redirectUrl" : "",
      "refreshTokenUrl" : "",
@@ -98,30 +96,24 @@ def setup_oauth(username, password, basemaps_token_uri, authcfg):
      "state" : "",
      "tokenUrl" : basemaps_token_uri,
      "username" : username,
-     "version" : '1'
+     "version" : 1
     }
 
-    if authcfg is None:
+    if authcfg_id not in QgsAuthManager.instance().availableAuthMethodConfigs():
         authConfig = QgsAuthMethodConfig('OAuth2')
-        authcfg = QgsAuthManager.instance().uniqueConfigId()
-        authConfig.setId(authcfg)
-        for k, v in config.items():
-            authConfig.setConfig(k, v)
-        authConfig.setConfig('username', username)
-        authConfig.setConfig('password', password)
-        authConfig.setName(AUTHCFG_NAME)
+        authConfig.setId(authcfg_id)
+        authConfig.setName(authcfg_name)
+        authConfig.setConfig('oauth2config', json.dumps(cfgjson))
         if QgsAuthManager.instance().storeAuthenticationConfig(authConfig):
-            return authcfg
-        else:
-            return None
+            return True
     else:
         authConfig = QgsAuthMethodConfig()
         QgsAuthManager.instance().loadAuthenticationConfig(authcfg, authConfig, True)
-        authConfig.setConfig('username', username)
-        authConfig.setConfig('password', password)
-        authConfig.setConfig('tokenUrl', basemaps_token_uri)
-        QgsAuthManager.instance().updateAuthenticationConfig(authConfig)
-    return authcfg
+        authConfig.setName(authcfg_name)
+        authConfig.setConfig('oauth2config', json.dumps(cfgjson))
+        if QgsAuthManager.instance().updateAuthenticationConfig(authConfig):
+            return True
+    return None
 
 
 def create_default_project(available_maps, project_template, authcfg=None):
