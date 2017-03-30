@@ -2,6 +2,7 @@
 ext-libs/
 
 oauth2.json
+travis_secrets.tar.gz
 
 __pycache__/
 *.py[cod]

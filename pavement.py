@@ -54,7 +54,7 @@ def setup(options):
     ext_libs.makedirs()
     runtime, test = read_requirements()
 
-    
+
     tmpCommonsPath = path(__file__).dirname() / "qgiscommons"
     dst = ext_libs / "qgiscommons"
     if dst.exists():
@@ -65,8 +65,8 @@ def setup(options):
     src = tmpCommonsPath / "lib-qgis-commons-master" / "qgiscommons"
     src.copytree(dst.abspath())
     tmpCommonsPath.rmtree()
-    
-    
+
+
     try:
         import pip
     except:
@@ -155,7 +155,7 @@ def make_zip(zipFile, options):
     for root, dirs, files in os.walk(options.sphinx.builddir):
         for f in files:
             relpath = os.path.join(options.plugin.name, "docs", os.path.relpath(root, options.sphinx.builddir))
-            zip.write(path(root) / f, path(relpath) / f)
+            zipFile.write(path(root) / f, path(relpath) / f)
 
 def create_settings_docs(options):
     settings_file = path(options.plugin.name) / "settings.json"
@@ -168,7 +168,7 @@ def create_settings_docs(options):
         grouped[setting["group"]].append(setting)
     with open (doc_file, "w") as f:
         f.write("Plugin settings\n###############\n\nThe plugin can be adjusted using the following settings, to be found in its settings dialog:\n")
-        for groupName, group in grouped.iteritems():        
+        for groupName, group in grouped.iteritems():
             f.write("\n* %s \n" % groupName)
             for setting in group:
                 f.write("\t - *%s*: %s\n\n" % (setting["label"], setting["description"]))

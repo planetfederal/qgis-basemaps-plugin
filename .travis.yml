@@ -2,46 +2,51 @@ sudo: required
 addons:
   ssh_known_hosts: qgis-dev.boundlessgeo.com
   hosts:
-    - boundless-test
+  - boundless-test
 services:
-    - docker
+- docker
 env:
   global:
-  # The plugin basename (the name of the main folder that contains the plugin source code)
-  - PLUGIN_NAME=basemaps
-  # If the build needs docker compose:
-  #- DOCKER_VERSION=1.12.0-0~trusty
-  #- DOCKER_COMPOSE_VERSION=1.7.1
+  - PLUGIN_NAME=boundlessbasemaps
+  - secure: GsykymwSaErBZzqA18V0ISukoOvJv53QeIOtWBZYkyKv5yj2cEpoMLyKGU6t7YDc8xdbMe0DLJIs9jFuL2KyeApbiACRQUX2HJhtm9IqXRRQ+ea0RzauH1xDOJVbu48XEaS+SEjSP9zN0Tu8D4RVRrMQ6wvsjfjvC9iN3BqEo9oaNN8puNMG2B3lNKELglcSacB8dc8GWVlRZr6bP4+FRrYFP1R30VVVBs55emFHb2gPBAeFwiSRGzBDnu+mjOUNpK34HmtWtXFfJ3iDnM4yUymlxk8rG4om3wU5vRGC5is+AN6MJZO8c2ehzueMOKpKva7nkaibxvde3KP1tNzjYCEqmaA1yyMwClBukkZm3C1hVVO2BwQBPLfyJxh7hUkG3Ce4OXibkmWZlG9CJba49vxYuCedINEcAHUX3tj03eIwzx/JiKl+GxmQcKWusGOqI7dKA2NnFnVW5rAfZ5kO6Ld8nVFqqCS/UpMWoHr1FWcjfcz0yWSLuqiUzrAWjpYxLtuf2HE1rlqnZJHpE57AiSjnaIsJm0WgrbDQPY/nP6NdiBu9x8LxqyXapYPg6OWmb/hC8tH28w7RNhCs/WBA6PUTlqJ1dVjhl16w94frZRf49r5dFKeu3uPVeYT1NKk5oBp7iBwCBzIEGbxJyG+q+wtDNtus2NZZfWKs5hOe91o=
+  - secure: Gy3fDVAEwSNJQZxyfYJDPdxRBT7c0UwogSn7ldPMjLXmOnO06J74dfUMi6sEtlr9ALNX1rDo8z5ygA7It2WBdMEgmVn1CG5/plLGdia+0voXttgVqs1xt51fm6RJ5DZaJKZV0lay4mHw4UvkTNt4yAZateI6ZsVN7XPUo9WeEBooSAmA+INowewn8ksLWFOndl8weSD0n8yu2DpA2xo2gSai+B7ff+Zoeic+6EbJAOYHswLlAj373z+sbsZOFsiMR8+UIt4OtGCcWC9f0pvsAeGrKNtdddzMrK1NH8cHfZ3WxCDN+ocKIr5xc1p2bQkWcguo2CbS42OocBtoyE5BcUNw7q+RiV3ii5zF0nHlybn00lq0g9W3nAYOEuvo8tjqLWy6VoaryuOV2qC5zwMCanCNC4Uu//uF3O6CWw7g8yuXgVu8QY9fRtXLrOXuxXnGLyM1FalTKNCEKAPoV5FupbLNwHN+Whgek3PWStzrWQm1U48k7vF+WAbGJGKQs3qWuc59naA6u+8YgqXL+NDSBy7ZB4EXaSfaBT3n0rnNJO70gpAoUC8qF2RCZ9TUTxd+ApS8a89kIgapRoCh/bz+YI7nJdPuGkLgjytnFaROVP1I5vNZfDxOOcZZepfA8GXvQN6PNK2Dowea8o2BW4XA1fFqqfZgO28qxgaVyw0Gf64=
   matrix:
   - QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
   - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
   - QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
 matrix:
   allow_failures:
-  # Do not fail the entire build if it fails only on master
   - env: QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
 before_install:
 - docker pull boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
 - docker tag boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
 install:
-# If the build needs docker compose:
-#- apt-cache madison docker-engine
-#- sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
-#- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-#- chmod +x docker-compose
-#- sudo mv docker-compose /usr/local/bin
-#- docker-compose up -d
-#- docker-compose ps
-
-# Standard docker (no-compose):
 - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis-testing-environment
 - sleep 10
 - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker exec -it qgis-testing-environment sh -c "$PIP_EXECUTABLE install paver"
 script:
-# Run the unit tests
 - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
-# This plugin has not yet any unit tests
-- docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
-# Example: - docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh ${PLUGIN_NAME}.tests.testerplugin.run_tests"
-# Note: see any other active plugin for slack and automatic deployment configuration
+- docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh ${PLUGIN_NAME}.tests.testerplugin"
+notifications:
+  slack:
+    rooms:
+      secure: FLj0+AeKvl/MfvNYtR4IBTnOoZqaBy0JIxWswdax6qGdAv+YWqN4guV8JDq/EC7bznMy6bTBTV2XOItrsph/U8EdfAVsi146ls5P61Kxttq04MCqe5JSBizdZL4YbOrZQBY4BIW6gdMOwmCq+uNFFZegfLrsMtJB/xb14tAFmK30rvH+UWCRe6mkDMiHM9Y//BNb+ut7iGfbqbMAShfi7GfoMpasHxmKXrPbO05pZufpwDjmjN4c/+gkIVMYH9iao8mZE+1pW1naM7Xhd7L6MxX9JdFVyaQ7M70nLnrasLJlP1QuXH2XmAjCVBt//jXiA90rSsphB8OpZAXOyJak3d13cvnY8TnhdlEhzDPKCtXfsmBX/xyWJTW9gp4qLER5Ywnxe7yUNKAF8MXH8GQidCqC/IjbpHKmSnRxVjtJKCj0yvUiU/uziXdfuPlHviOekVgq5J9B5LIm+rbCLTPkH6d7zR6ANJqwOUFxOFZNGNtqZJrJ/tHS7yWGpWrtNrrpPuc0CxIPrY9uH/tDYYcJorPgURDreTpbVcKXlk5RyDrgY36m4Gj3EADoAFvyoQmXRye/OAyMjVFDnmtQVgX9qbhOMoEEpKpzyPvZlqhcdtrvo1avo2SPa07XOtB2wC+md4ovFrmLhKc9qD3i55mYBKyr7/WLAZBaJYMp5MBkpso=
+after_success:
+- |
+    if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+        mkdir /home/travis/.ssh/
+        chmod 700 /home/travis/.ssh/
+        openssl aes-256-cbc -K $encrypted_f186a69a0ee8_key -iv $encrypted_f186a69a0ee8_iv -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
+        tar xzvf travis_secrets.tar.gz
+        mv id_rsa.qgisrepoguest /home/travis/.ssh/id_rsa.qgisrepoguest
+        mv ssh_config /home/travis/.ssh/config
+        chmod 600 /home/travis/.ssh/id_rsa.qgisrepoguest
+        chmod 600 /home/travis/.ssh/config
+        export RELEASE_ZIPNAME=${PLUGIN_NAME}.zip
+        echo "Uploading ${RELEASE_ZIPNAME} to QGIS Dev..."
+        scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${RELEASE_ZIPNAME}
+        export GIT_REV=$(git rev-parse --short HEAD)
+        # No roles on this plugin, everybody should be able to download it (auth lock out)
+        ssh qgisrepoguest "${UPDATER} update --dev --git-hash ${GIT_REV} ${RELEASE_ZIPNAME}"
+    fi
