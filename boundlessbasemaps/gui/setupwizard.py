@@ -291,7 +291,14 @@ class ConclusionPage(WizardPage):
 
 
 class FailurePage(WizardPage):
-    """End page for wizard"""
+    """End page for wizard in case of errors
+
+    WARNING: this page is currently never reached, because the only possible
+    point of failure is the map list fetch, but if that fails, the error
+    is shown in the map selection page itself and the user can only choose
+    cancel.
+    I'm leaving the implementation here in case we change the workflow.
+    """
     def __init__(self, settings, parent=None):
         super(FailurePage, self).__init__(settings, parent)
 
@@ -347,6 +354,8 @@ class SetupWizard(QWizard):
         self.setPage(self.CredentialsPage, CredentialsPage(settings, self))
         self.setPage(self.MapSelectionPage, MapSelectionPage(settings, self))
         self.setPage(self.ConclusionPage, ConclusionPage(settings, self))
+        # Note: the following page cannot be reached in the current workflow
+        #       left for future use
         self.setPage(self.FailurePage, FailurePage(settings, self))
 
         self.setStartId(self.IntroPage)

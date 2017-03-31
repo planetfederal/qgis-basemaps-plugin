@@ -45,13 +45,23 @@ def bcs_supported():
     return 'OAuth2' in QgsAuthManager.instance().authMethodsKeys()
 
 
-def set_default_project(content):
-    """Create a new default project with the given content"""
-    # TODO: check existing
-    with open(os.path.join(QgsApplication.qgisSettingsDirPath(), 'project_default.qgs'), 'wb+') as f:
+def default_project_path():
+    """Return the default project path"""
+    return os.path.join(QgsApplication.qgisSettingsDirPath(), 'project_default.qgs')
+
+
+def set_default_project(content, overwrite=False):
+    """Create a new default project with the given content,
+    if overwrite is True any pre-existing project will be silently overwritten.
+    Return True in case of successful project writing."""
+    default_path = default_project_path()
+    if not overwrite and os.path.isfile(default_path):
+        return False
+    with open(default_path, 'wb+') as f:
         f.write(content)
     settings = QSettings()
     settings.setValue('Qgis/newProjectDefault', True)
+    return True
 
 
 def unset_default_project():
@@ -105,14 +115,14 @@ def setup_oauth(username, password, basemaps_token_uri, authcfg_id=AUTHCFG_ID, a
         authConfig.setName(authcfg_name)
         authConfig.setConfig('oauth2config', json.dumps(cfgjson))
         if QgsAuthManager.instance().storeAuthenticationConfig(authConfig):
-            return True
+            return authcfg_id
     else:
         authConfig = QgsAuthMethodConfig()
-        QgsAuthManager.instance().loadAuthenticationConfig(authcfg, authConfig, True)
+        QgsAuthManager.instance().loadAuthenticationConfig(authcfg_id, authConfig, True)
         authConfig.setName(authcfg_name)
         authConfig.setConfig('oauth2config', json.dumps(cfgjson))
         if QgsAuthManager.instance().updateAuthenticationConfig(authConfig):
-            return True
+            return authcfg_id
     return None
 
 

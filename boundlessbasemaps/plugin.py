@@ -24,8 +24,9 @@ __copyright__ = '(C) 2017 Boundless, http://boundlessgeo.com'
 
 import os
 import webbrowser
+from datetime import datetime
 
-from qgis.PyQt.QtWidgets import QAction, QDialog
+from qgis.PyQt.QtWidgets import QAction, QDialog, QMessageBox
 from qgis.PyQt.QtCore import QCoreApplication
 
 from qgis.core import QgsApplication
@@ -67,6 +68,9 @@ class Basemaps:
 
     def setup(self, username=None, password=None):
         """Configuration wizard"""
+        # Preliminary check:
+        if not utils.bcs_supported():
+            return QMessageBox.warning(None, self.tr("Basemaps error"), self.tr("Your QGIS installation does not meet the minimum requirements to run this plugin. Please check if the OAUth2 authentication plugin is installed and have a look to the documentation for further information."))
         from gui.setupwizard import SetupWizard
         settings = {
             "maps_uri": pluginSetting('maps_uri'),
@@ -108,7 +112,13 @@ class Basemaps:
                         prj = utils.create_default_project([m for m in settings.get('available_maps') if m['name'] in selected], template, authcfg)
                         if prj is None or prj == '':
                             raise BasemapsConfigError(self.tr("Could not create a valid default project from the template '%s'!" % template))
-                        utils.set_default_project(prj)
+                        # Check for any existing default_project
+                        if os.path.isfile(utils.default_project_path()):
+                            default_project_backup = utils.default_project_path().replace('.qgs', '-%s.qgs' % datetime.now().strftime('%Y-%m-%d-%H:%M:%S'))
+                            os.rename(utils.default_project_path(), default_project_backup)
+                            self.iface.messageBar().pushMessage(self.tr("Basemaps setup"), self.tr("The previous default project has been copied to %s" % default_project_backup), level=QgsMessageBar.INFO)
+                        if not utils.set_default_project(prj):
+                            raise BasemapsConfigError(self.tr("Could not write the default project on disk!"))
                         # Store settings
                         setPluginSetting('enabled', True)
                         setPluginSetting('authcfg', authcfg)

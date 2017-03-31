@@ -169,7 +169,7 @@ class BasemapsTest(unittest.TestCase):
 
     def test_utils_create_oauth(self):
         """Create an authentication configuration"""
-        self.assertTrue(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME))
+        self.assertEquals(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME), TEST_AUTHCFG_ID)
 
     def test_wizard(self):
         """Test the wizard dialog full workflow"""
@@ -231,7 +231,7 @@ class BasemapsTest(unittest.TestCase):
     def test_wizard_pre_defined_authcfg(self):
         """Test the wizard dialog with valid authcfg"""
         # Forge some settings:
-        self.assertTrue(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME))
+        self.assertEquals(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME), TEST_AUTHCFG_ID)
         settings = {
             "token_uri": TOKEN_URI,
             "maps_uri": MAPS_URI,
