@@ -10,7 +10,7 @@ import unittest
 import tempfile
 
 
-MAPS_URI = "http://api.boundlessgeo.io/v1/basemaps/"
+MAPS_URI = "https://api.boundlessgeo.io/v1/basemaps/"
 TOKEN_URI = "https://api.dev.boundlessgeo.io/v1/token/oauth/"
 AUTHDB_MASTERPWD = "pass"
 TEST_AUTHCFG_ID = "cone999"  # test id
