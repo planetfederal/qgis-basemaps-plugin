@@ -116,7 +116,7 @@ class Basemaps:
                         if os.path.isfile(utils.default_project_path()):
                             default_project_backup = utils.default_project_path().replace('.qgs', '-%s.qgs' % datetime.now().strftime('%Y-%m-%d-%H:%M:%S'))
                             os.rename(utils.default_project_path(), default_project_backup)
-                            self.iface.messageBar().pushMessage(self.tr("Basemaps setup"), self.tr("The previous default project has been copied to %s" % default_project_backup), level=QgsMessageBar.INFO)
+                            self.iface.messageBar().pushMessage(self.tr("Basemaps setup"), self.tr("A backup copy of the previous default project has been saved to %s" % default_project_backup), level=QgsMessageBar.INFO)
                         if not utils.set_default_project(prj):
                             raise BasemapsConfigError(self.tr("Could not write the default project on disk!"))
                         # Store settings
@@ -142,7 +142,7 @@ class Basemaps:
 
         # Add setup action
         setupIcon = QgsApplication.getThemeIcon('/mActionOptions.svg')
-        self.setupAction = QAction(setupIcon, "Setup...", self.iface.mainWindow())
+        self.setupAction = QAction(setupIcon, "Setup wizard...", self.iface.mainWindow())
         self.setupAction.setObjectName("boundlessbasemapssetup")
         self.setupAction.triggered.connect(self.setup)
         self.iface.addPluginToMenu("Basemaps", self.setupAction)

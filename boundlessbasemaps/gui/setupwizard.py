@@ -85,10 +85,10 @@ class IntroPage(WizardPage):
         super(IntroPage, self).__init__(settings, parent)
 
         self.setTitle(self.tr("Boundless base layers"))
-        self.setSubTitle(self.tr("With Boundless Basemaps you can have a whole set of amazing online base layers automatically added to all your new projects!"))
+        self.setSubTitle(self.tr("With Boundless Basemaps, you can choose from a collection of premium maps to provide backdrops to your new projects!"))
         self.add_watermark()
 
-        label = QLabel(self.tr("""This wizard will guide you through the configuration of Boundless Basemaps. This functionality uses a QGIS default project with pre-configured online basemaps. You can disable this functionality at any time from the Settings or re-running this wizard and unchecking the checkbox below."""))
+        label = QLabel(self.tr("""This wizard will guide you through the configuration of Boundless Basemaps.<br>This functionality uses a QGIS default project with pre-configured online basemaps.<br>You can disable this functionality at any time re-running this wizard and unchecking the checkbox below."""))
         label.setWordWrap(True)
 
         self.optin = QCheckBox(self.tr("Yes: I'm in!"))
@@ -127,19 +127,19 @@ class ConfirmCredentialsPage(WizardPage):
 
     def __init__(self, settings, parent=None):
         super(ConfirmCredentialsPage, self).__init__(settings, parent)
-        self.setTitle("Use your current credentials configuration")
-        self.setSubTitle("You already have an OAuth2 Connect credentials configuration: do you want to use it?")
+        self.setTitle("Connect account confirmation")
+        self.setSubTitle("You already have a Connect account: do you want to use it?")
 
         bh = QButtonGroup()
-        self.optin = QRadioButton(self.tr("Use current configuration!"))
+        self.optin = QRadioButton(self.tr("Use current account!"))
         self.optin.setChecked(True)
-        self.optout = QRadioButton(self.tr("Create a new configuration!"))
+        self.optout = QRadioButton(self.tr("Use a different account!"))
         self.optout.setChecked(False)
         self.registerField('use_current_authcfg', self.optin)
         bh.addButton(self.optin)
         bh.addButton(self.optout)
 
-        label = QLabel(self.tr("If you do not want to use your current configuration, you will be prompted to create a new one on the next step."))
+        label = QLabel(self.tr("If you do not want to use your current account, you will be prompted to enter the credential for another account in the next step."))
         label.setWordWrap(True)
         self.label2 = QLabel()
 
@@ -155,7 +155,7 @@ class ConfirmCredentialsPage(WizardPage):
         if authcfg is not None:
             # Store the ID, not the instance!
             self.settings['authcfg'] = authcfg.id()
-            self.label2.setText(self.tr("Current configuration: [%s] <b>%s</b>") % (authcfg.id(), authcfg.name()))
+            self.label2.setText(self.tr("Current Connect account: <b>%s</b>") % authcfg.name())
         else:
             self.settings['authcfg'] = None
         super(ConfirmCredentialsPage, self).initializePage()
@@ -172,13 +172,13 @@ class MapSelectionPage(WizardPage):
 
     def __init__(self, settings, parent=None):
         super(MapSelectionPage, self).__init__(settings, parent)
-        self.setTitle("Choose your Base Maps")
-        self.setSubTitle("Here you can select which map you want to be added to your default project.")
+        self.setTitle("Choose your Basemaps")
+        self.setSubTitle("Here you can select which base map you want to be added to your default project.")
         self.map_choices = []
         self.available_maps = None
         self.maplist_layout = QVBoxLayout()
         self.maplist = QGroupBox()
-        self.maplist.setTitle(self.tr("Select your base maps!"))
+        #self.maplist.setTitle(self.tr("Select your base maps!"))
         self.maplist.setFlat(True)
 
     def initializePage(self):
@@ -232,8 +232,8 @@ class CredentialsPage(WizardPage):
     def __init__(self, settings, parent=None):
         super(CredentialsPage, self).__init__(settings, parent)
 
-        self.setTitle("Authentication configuration for Basemaps")
-        self.setSubTitle("Please enter your Boundless Connect credentials to create the authentication configuration")
+        self.setTitle("Connect login")
+        self.setSubTitle("In order to access the Basemaps you need a valid Connect account")
 
         nameLabel = QLabel("Username: ")
         self.username = QLineEdit()
@@ -253,7 +253,7 @@ class CredentialsPage(WizardPage):
         grid.addWidget(pwdLabel, 1, 0)
         grid.addWidget(self.password, 1, 1)
 
-        label = QLabel("""You need to create an authentication configuration to access the online Basemaps. Please enter your credentials in the form below.""")
+        label = QLabel("""Please enter your Connect credentials in the form below.""")
         label.setWordWrap(True)
         layout = QVBoxLayout()
         layout.addWidget(label)
@@ -266,7 +266,7 @@ class ConclusionPage(WizardPage):
     def __init__(self, settings, parent=None):
         super(ConclusionPage, self).__init__(settings, parent)
 
-        self.setTitle(self.tr("Boundless base layers setup complete"))
+        self.setTitle(self.tr("Boundless Bsemaps setup complete"))
         self.setSubTitle("")
         self.add_watermark()
 
@@ -283,10 +283,10 @@ class ConclusionPage(WizardPage):
     def initializePage(self):
         if self.field('enabled'):
             self.setSubTitle(self.tr("The Basemaps default project will now be created!"))
-            self.label.setText(self.tr("""You can re-run this setup wizard at any time from the Plugins -> Basemaps -> Setup menu"""))
+            self.label.setText(self.tr("""You can re-run this setup wizard at any time from the <tt>Plugins -> Basemaps -> Setup</tt> menu"""))
         else:
             self.setSubTitle(self.tr("You chose to not use the Basemaps."))
-            self.label.setText(self.tr("If you change your mind, you can enable the Basemaps re-running this setup wizard from the Plugins -> Basemaps -> Setup menu"))
+            self.label.setText(self.tr("If you change your mind, you can enable the Basemaps re-running this setup wizard from the <tt>Plugins -> Basemaps -> Setup</tt> menu"))
         super(ConclusionPage, self).initializePage()
 
 
@@ -346,7 +346,7 @@ class SetupWizard(QWizard):
 
     def __init__(self, settings, parent=None):
         super(SetupWizard, self).__init__(parent)
-        self.setWindowTitle("Boundles Base Layers Setup")
+        self.setWindowTitle("Boundless Basemaps Setup")
         self.settings = settings
 
         self.setPage(self.IntroPage, IntroPage(settings, self))

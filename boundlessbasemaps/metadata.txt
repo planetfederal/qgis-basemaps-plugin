@@ -1,8 +1,8 @@
 [general]
 name=boundlessbasemaps
-description=This field cannot be blank! Insert your plugin description here.
-about=<p></p>
-category=Plugins
+description=This plugin adds selected Boundless Base Maps to the default project.
+about=Boundless Desktop comes with a whole set of amazing base maps that you can add to your default QGIS project. With this plugin you can configure this feature interactively.
+category=
 qgisMinimumVersion=2.18
 version=1.0
 
