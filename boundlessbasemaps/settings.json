@@ -8,10 +8,17 @@
 	},
 	{"name":"selected",
 	  "label": "Reserved: selected basemaps",
-	 "description": "#-separated string",
+	 "description": "list of ### separated string",
 	 "type": "string",
 	 "default": "",
-	 "group": "Basemaps"
+	 "group": "Basemaps reserved configurations"
+	},
+	{"name":"visible",
+	  "label": "Reserved: selected basemaps",
+	 "description": "list of ### separated string",
+	 "type": "string",
+	 "default": "",
+	 "group": "Basemap reserved configurations"
 	},
 	{"name":"authcfg",
 	 "label": "Auth config for Basemaps",
@@ -24,14 +31,14 @@
 	 "label": "BCS Token URI",
 	 "description": "URI for Token authentication",
 	 "type": "string",
-	 "default": "https://api.dev.boundlessgeo.io/v1/token/oauth/",
+	 "default": "https://api.test.boundlessgeo.io/v1/token/oauth/",
 	 "group": "Basemaps advanced configuration"
     },
 	{"name":"maps_uri",
 	 "label": "BCS available maps URI",
 	 "description": "URI to get the available base maps",
 	 "type": "string",
-	 "default": "https://api.boundlessgeo.io/v1/basemaps/",
+	 "default": "https://api.test.boundlessgeo.io/v1/basemaps/",
 	 "group": "Basemaps advanced configuration"
     },
 	{"name":"first_time_setup_done",
@@ -40,7 +47,7 @@
 	 "type": "bool",
 	 "default": false,
 	 "group": "Basemaps advanced configuration"
- },
+    },
 	{"name":"project_template",
 	 "label": "Override template for default project boundlessbasemaps",
 	 "description": "This path is normally blank but can be set to an alternative template for the default project",

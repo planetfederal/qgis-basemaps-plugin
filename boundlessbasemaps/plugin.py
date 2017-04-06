@@ -20,23 +20,18 @@ __author__ = 'Alessandro Pasotti'
 __date__ = 'March 2017'
 __copyright__ = '(C) 2017 Boundless, http://boundlessgeo.com'
 
-# This will get replaced with a git SHA1 when you do a git archive
-
 import os
 import webbrowser
 from datetime import datetime
-
 from qgis.PyQt.QtWidgets import QAction, QDialog, QMessageBox
 from qgis.PyQt.QtCore import QCoreApplication
-
 from qgis.core import QgsApplication
 from qgis.gui import QgsMessageBar
-
 from qgiscommons.settings import addSettingsMenu, removeSettingsMenu, readSettings, pluginSetting, setPluginSetting
-
 from boundlessbasemaps import utils
 
 PROJECT_DEFAULT_TEMPLATE = os.path.join(os.path.dirname(__file__), 'project_default.qgs.tpl')
+
 
 class BasemapsConfigError(Exception):
     """Config step gone wrong"""
@@ -124,7 +119,7 @@ class Basemaps:
                         setPluginSetting('authcfg', authcfg)
                         setPluginSetting('selected', settings.get('selected'))
                         self.iface.messageBar().pushMessage(self.tr("Basemaps setup success"), self.tr("Basemaps are now ready to use!"), level=QgsMessageBar.INFO)
-                    except BaseException as e:
+                    except BasemapsConfigError as e:
                         self.iface.messageBar().pushMessage(self.tr("Basemaps setup error"), e.message, level=QgsMessageBar.CRITICAL)
                     except Exception as e:
                         self.iface.messageBar().pushMessage(self.tr("Basemaps unhandled exception"), "%s" % e, level=QgsMessageBar.CRITICAL)
@@ -148,7 +143,7 @@ class Basemaps:
         self.iface.addPluginToMenu("Basemaps", self.setupAction)
 
         addSettingsMenu("Basemaps")
-        #  addAboutMenu("Basemaps") Not working!
+        # addAboutMenu("Basemaps") Not working!
 
     def unload(self):
         try:

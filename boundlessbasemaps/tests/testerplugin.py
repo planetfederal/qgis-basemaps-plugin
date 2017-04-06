@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-# Tests for the QGIS Tester plugin. To know more see
+# Tests for the QGIS Tester plugin and for Travis CI.
+# This test can be run from the command line as a normal
+# python script
+
+# To know more see
 # https://github.com/boundlessgeo/qgis-tester-plugin
 
 import os
@@ -10,8 +14,8 @@ import unittest
 import tempfile
 
 
-MAPS_URI = "https://api.boundlessgeo.io/v1/basemaps/"
-TOKEN_URI = "https://api.dev.boundlessgeo.io/v1/token/oauth/"
+MAPS_URI = "https://api.test.boundlessgeo.io/v1/basemaps/"
+TOKEN_URI = "https://api.test.boundlessgeo.io/v1/token/oauth/"
 AUTHDB_MASTERPWD = "pass"
 TEST_AUTHCFG_ID = "cone999"  # test id
 TEST_AUTHCFG_NAME = "Boundless BCS API OAuth2 - TEST"
@@ -29,7 +33,7 @@ except:
 from boundlessbasemaps import utils
 from boundlessbasemaps.gui.setupwizard import SetupWizard
 from qgis.core import QgsProject, QgsApplication, QgsAuthManager
-from qgis.PyQt.QtCore import QFileInfo
+from qgis.PyQt.QtCore import QFileInfo, Qt
 
 
 def functionalTests():
@@ -71,6 +75,7 @@ class BasemapsTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data_dir = os.path.join(os.path.dirname(__file__), 'data')
+        cls.local_maps_uri = os.path.join(cls.data_dir, 'basemaps.json')
         cls.tpl_path = os.path.join(
             os.path.dirname(__file__), os.path.pardir, 'project_default.qgs.tpl')
         cls.authcfg = None
@@ -117,6 +122,7 @@ class BasemapsTest(unittest.TestCase):
                                  #u'Mapbox Street Vector Tiles', # unsupported
                                  u'Mapbox Streets',
                                  #u'Mapbox Traffic Vector Tiles'# unsupported
+                                 u'Recent Imagery',
                                  ])
 
     def test_utils_get_available_maps(self):
@@ -126,15 +132,17 @@ class BasemapsTest(unittest.TestCase):
                                                      'basemaps.json'))
         names = [m['name'] for m in maps]
         names.sort()
-        self.assertEqual(names, [u'Boundless Basemap',
+        self.assertEqual(names, [
                                  u'Mapbox Dark',
                                  u'Mapbox Light',
                                  u'Mapbox Outdoors',
                                  u'Mapbox Satellite',
                                  u'Mapbox Satellite Streets',
-                                 u'Mapbox Street Vector Tiles',
+                                 #u'Mapbox Street Vector Tiles',
                                  u'Mapbox Streets',
-                                 u'Mapbox Traffic Vector Tiles'])
+                                 #u'Mapbox Traffic Vector Tiles',
+                                 u'Recent Imagery',
+                                 ])
 
     def test_utils_create_default_auth_project(self):
         """Create the default project with authcfg"""
@@ -176,7 +184,9 @@ class BasemapsTest(unittest.TestCase):
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
-            "maps_uri": MAPS_URI,
+            "maps_uri": self.local_maps_uri,
+            "visible": u'Mapbox Streets',
+            "selected": u'Mapbox Satellite Streets###Mapbox Streets'
         }
         w = SetupWizard(settings)
         w.show()
@@ -186,9 +196,6 @@ class BasemapsTest(unittest.TestCase):
         w.currentPage().password.setText('my_password')
         # Go to map selection page
         w.next()
-        ms = w.currentPage()
-        # Check Streets
-        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
         w.next()
         w.accept()
         # Check all
@@ -196,7 +203,9 @@ class BasemapsTest(unittest.TestCase):
         self.assertIsNone(w.settings.get('authcfg'))
         self.assertFalse(w.settings.get('use_current_authcfg'))
         self.assertEquals(w.settings.get('selected'),
-                          u'Mapbox Satellite Streets#Mapbox Streets')
+                          u'Mapbox Satellite Streets###Mapbox Streets')
+        self.assertEquals(w.settings.get('visible'),
+                          u'Mapbox Streets')
         self.assertEquals(w.settings.get('username'), 'my_username')
         self.assertEquals(w.settings.get('password'), 'my_password')
 
@@ -205,7 +214,7 @@ class BasemapsTest(unittest.TestCase):
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
-            "maps_uri": MAPS_URI,
+            "maps_uri": self.local_maps_uri,
         }
         w = SetupWizard(settings)
         w.show()
@@ -217,7 +226,7 @@ class BasemapsTest(unittest.TestCase):
         w.next()
         ms = w.currentPage()
         # Check Streets
-        [c.setChecked(False) for c in ms.map_choices]
+        [c.setCheckState(0, Qt.Unchecked) for c in ms.map_choices]
         w.next()
         w.accept()
         # Check all
@@ -234,8 +243,8 @@ class BasemapsTest(unittest.TestCase):
         self.assertEquals(utils.setup_oauth('username', 'password', TOKEN_URI, TEST_AUTHCFG_ID, TEST_AUTHCFG_NAME), TEST_AUTHCFG_ID)
         settings = {
             "token_uri": TOKEN_URI,
-            "maps_uri": MAPS_URI,
-            "authcfg":TEST_AUTHCFG_ID
+            "maps_uri": self.local_maps_uri,
+            "authcfg": TEST_AUTHCFG_ID
         }
         w = SetupWizard(settings)
         w.show()
@@ -243,7 +252,7 @@ class BasemapsTest(unittest.TestCase):
         w.next()
         ms = w.currentPage()
         # Check Streets
-        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
+        [c.setCheckState(0, (Qt.Checked if c.text(0).find('Street') != -1 else Qt.Unchecked)) for c in ms.map_choices]
         w.next()
         w.accept()
         # Check all
@@ -251,7 +260,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertEquals(w.settings.get('authcfg'), settings['authcfg'])
         self.assertTrue(w.settings.get('use_current_authcfg'))
         self.assertEquals(w.settings.get('selected'),
-                          u'Mapbox Satellite Streets#Mapbox Streets')
+                          u'Mapbox Satellite Streets###Mapbox Streets')
         self.assertIsNone(w.settings.get('username'))
         self.assertIsNone(w.settings.get('password'))
 
@@ -261,7 +270,7 @@ class BasemapsTest(unittest.TestCase):
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
-            "maps_uri": MAPS_URI,
+            "maps_uri": self.local_maps_uri,
             "authcfg": 'fffffff',
         }
         w = SetupWizard(settings)
@@ -274,7 +283,7 @@ class BasemapsTest(unittest.TestCase):
         w.next()
         ms = w.currentPage()
         # Check Streets
-        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
+        [c.setCheckState(0, (Qt.Checked if c.text(0).find('Street') != -1 else Qt.Unchecked)) for c in ms.map_choices]
         w.next()
         w.accept()
         # Check all
@@ -282,7 +291,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertIsNone(w.settings.get('authcfg'))
         self.assertFalse(w.settings.get('use_current_authcfg'))
         self.assertEquals(w.settings.get('selected'),
-                          u'Mapbox Satellite Streets#Mapbox Streets')
+                          u'Mapbox Satellite Streets###Mapbox Streets')
         self.assertEquals(w.settings.get('username'), 'my_username')
         self.assertEquals(w.settings.get('password'), 'my_password')
 
@@ -292,7 +301,7 @@ class BasemapsTest(unittest.TestCase):
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
-            "maps_uri": MAPS_URI,
+            "maps_uri": self.local_maps_uri,
             "username": 'my_username',
             "password": 'my_password',
         }
@@ -302,7 +311,8 @@ class BasemapsTest(unittest.TestCase):
         w.next()
         ms = w.currentPage()
         # Check Streets
-        [c.setChecked(c.text().find('Street') != -1) for c in ms.map_choices]
+
+        [c.setCheckState(0, (Qt.Checked if c.text(0).find('Street') != -1 else Qt.Unchecked)) for c in ms.map_choices]
         w.next()
         w.accept()
         # Check all
@@ -310,7 +320,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertIsNone(w.settings.get('authcfg'))
         self.assertFalse(w.settings.get('use_current_authcfg'))
         self.assertEquals(w.settings.get('selected'),
-                          u'Mapbox Satellite Streets#Mapbox Streets')
+                          u'Mapbox Satellite Streets###Mapbox Streets')
         self.assertEquals(w.settings.get('username'), settings.get('username'))
         self.assertEquals(w.settings.get('password'), settings.get('password'))
 
@@ -334,10 +344,34 @@ def run_all():
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(pluginSuite())
 
 
+def _test_wizard_interactive():
+    """For debugging"""
+    settings = {
+        "token_uri": TOKEN_URI,
+        "maps_uri": MAPS_URI,
+        "username": 'my_username',
+        "password": 'my_password',
+    }
+    settings = {
+        "token_uri": TOKEN_URI,
+        "maps_uri": os.path.join(os.path.dirname(__file__), 'data', 'basemaps.json'),
+        "visible": u'Mapbox Streets',
+        "selected": u'Mapbox Satellite Streets###Mapbox Streets'
+    }
+    w = SetupWizard(settings)
+    import pprint
+    pprint.pprint(w.exec_())
+    pprint.pprint(settings)
+
+
 if __name__ == '__main__':
     AUTHDBDIR = tempfile.mkdtemp()
     os.environ['QGIS_AUTH_DB_DIR_PATH'] = AUTHDBDIR
     QgsApplication.setPrefixPath('/usr/', True)
     qgs = QgsApplication([], True)
     qgs.initQgis()
-    unittest.main()
+    try:
+        sys.argv[1]
+        _test_wizard_interactive()
+    except:
+        unittest.main()

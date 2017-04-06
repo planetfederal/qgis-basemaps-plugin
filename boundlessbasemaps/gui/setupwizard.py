@@ -28,9 +28,9 @@ __copyright__ = '(C) 2017 Boundless, http://boundlessgeo.com'
 from qgis.PyQt.QtWidgets import (QWizard, QWizardPage, QLabel, QVBoxLayout,
                                  QLineEdit, QGridLayout, QCheckBox,
                                  QButtonGroup, QRadioButton, QGroupBox,
-                                 QPushButton)
+                                 QTreeWidget, QTreeWidgetItem)
 from qgis.PyQt.QtGui import QPixmap, QIcon
-from qgis.PyQt.QtCore import QSize
+from qgis.PyQt.QtCore import Qt, QSize
 from boundlessbasemaps import utils
 
 
@@ -41,6 +41,7 @@ class WizardPage(QWizardPage):
     def __init__(self, settings, parent=None):
         super(WizardPage, self).__init__(parent)
         self.settings = settings
+        self.setTitle(self.tr("Boundless Basemaps Setup"))
         self.imgpath = os.path.join(os.path.dirname(__file__), os.path.pardir, "images")
         self.error_msg = None
         self.error_widget = QLabel()
@@ -74,17 +75,12 @@ class WizardPage(QWizardPage):
         self.setPixmap(QWizard.WatermarkPixmap, self.bg)
 
 
-    def cleanupPage(self):
-        self.set_error(None)
-
-
 class IntroPage(WizardPage):
     """Intro page for wizard"""
 
     def __init__(self, settings, parent=None):
         super(IntroPage, self).__init__(settings, parent)
 
-        self.setTitle(self.tr("Boundless base layers"))
         self.setSubTitle(self.tr("With Boundless Basemaps, you can choose from a collection of premium maps to provide backdrops to your new projects!"))
         self.add_watermark()
 
@@ -127,8 +123,7 @@ class ConfirmCredentialsPage(WizardPage):
 
     def __init__(self, settings, parent=None):
         super(ConfirmCredentialsPage, self).__init__(settings, parent)
-        self.setTitle("Connect account confirmation")
-        self.setSubTitle("You already have a Connect account: do you want to use it?")
+        self.setSubTitle(self.tr("Connect account confirmation: you already have a Connect account: do you want to use it?"))
 
         bh = QButtonGroup()
         self.optin = QRadioButton(self.tr("Use current account!"))
@@ -172,53 +167,98 @@ class MapSelectionPage(WizardPage):
 
     def __init__(self, settings, parent=None):
         super(MapSelectionPage, self).__init__(settings, parent)
-        self.setTitle("Choose your Basemaps")
-        self.setSubTitle("Here you can select which base map you want to be added to your default project.")
+        self.setSubTitle(self.tr("Choose your base maps"))
         self.map_choices = []
+        self.map_visible_choices = []
         self.available_maps = None
         self.maplist_layout = QVBoxLayout()
+        label = QLabel(self.tr("Please select which base maps you want to be added to your new projects, check the \"Visible\" checkbox if you want the base map to be loaded by default."))
+        label.setWordWrap(True)
+        self.maplist_layout.addWidget(label)
         self.maplist = QGroupBox()
         #self.maplist.setTitle(self.tr("Select your base maps!"))
         self.maplist.setFlat(True)
+        self.tree = None
 
     def initializePage(self):
         # Get available maps
         if self.available_maps is None:
             selected = [e for e in self.settings.get('selected', "").split('###') if e != '']
+            visible = [e for e in self.settings.get('visible', "").split('###') if e != '']
             try:
                 self.available_maps = utils.get_available_maps(self.settings.get('maps_uri'))
                 self.settings['available_maps'] = self.available_maps
                 self.map_choices = []
                 if self.available_maps is not None and len(self.available_maps):
+                    # Collect providers
+                    providers = set()
                     for m in self.available_maps:
-                        w = QCheckBox("%(name)s" % m)
-                        w.toggled.connect(self.completeChanged.emit)
-                        self.map_choices.append(w)
-                        w.setChecked((m['name'] in selected) if len(selected) else True)
-                        self.maplist_layout.addWidget(w)
-                    layout = QVBoxLayout()
-                    layout.addWidget(self.maplist)
-                    self.toggle_btn = QPushButton(self.tr("Toggle all"))
+                        p = m['provider'] if 'provider' in m and m['provider'] else m['attribution']
+                        if p not in providers:
+                            providers.add(p)
+                    providers = list(providers)
+                    providers.sort()
+                    # Build the tree
+                    self.tree = QTreeWidget()
+                    self.tree.setColumnCount(2)
+                    self.tree.setHeaderLabels([self.tr("Available maps"), self.tr("Visible")])
+                    root = QTreeWidgetItem(self.tree)
+                    root.setText(0, self.tr("All maps"))
+                    root.setFlags(root.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+                    root.setCheckState(0, Qt.Checked)
 
-                    def _tg():
-                        """Toggle"""
+                    for p in providers:
+                        parent = QTreeWidgetItem(root)
+                        parent.setText(0, p)
+                        parent.setFlags(parent.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+                        for m in self.available_maps:
+                            if (m['provider'] if 'provider' in m  and m['provider'] else m['attribution']) == p:
+                                child = QTreeWidgetItem(parent)
+                                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
+                                child.setText(0, m['name'])
+                                viscb = QCheckBox()
+                                if len(visible):
+                                    viscb.setChecked(m['name'] in visible)
+                                else:
+                                    viscb.setChecked(False)
+                                self.tree.setItemWidget(child, 1, viscb)
+                                self.map_visible_choices.append(viscb)
+                                if m['description']:
+                                    child.setToolTip(0, m['description'])
+                                if len(selected):
+                                    if m['name'] in selected:
+                                        child.setCheckState(0, Qt.Checked)
+                                    else:
+                                        child.setCheckState(0, Qt.Unchecked)
+                                else:
+                                    child.setCheckState(0, Qt.Checked)
+                                self.map_choices.append(child)
+
+                    def set_visibility_state():
+                        '''Control the status of the visibility widgets'''
+                        i = 0
                         for w in self.map_choices:
-                            w.setChecked(not w.isChecked())
-                            self.completeChanged.emit()
+                            self.map_visible_choices[i].setEnabled(self.map_choices[i].checkState(0) == Qt.Checked)
+                            i += 1
 
-                    self.toggle_btn.clicked.connect(_tg)
-                    layout.addWidget(self.toggle_btn)
-                    self.setLayout(layout)
+                    set_visibility_state()
+                    self.tree.model().dataChanged.connect(set_visibility_state)
+                    self.tree.model().dataChanged.connect(self.completeChanged.emit)
+                    self.tree.header().resizeSection(0, 600)
+                    self.tree.header().resizeSection(1, 100)
+                    self.tree.expandAll()
+                    self.maplist_layout.addWidget(self.tree)
                 else:
                     self.set_error(self.tr("The list of available maps is empty!"))
-            except Exception:
-                self.set_error(self.tr("There was an error fetching the list of maps from the server! Please check your internet connection and retry later!"))
-            self.maplist.setLayout(self.maplist_layout)
+            except Exception as e:
+                raise e
+                self.set_error(self.tr("There was an error fetching the list of maps from the server! Please check your internet connection and retry later! Error: %s") % e)
+            self.setLayout(self.maplist_layout)
             super(MapSelectionPage, self).initializePage()
 
     def isComplete(self):
         """We need at least one map"""
-        return super(MapSelectionPage, self).isComplete() and len([c for c in self.map_choices if c.isChecked()])
+        return super(MapSelectionPage, self).isComplete() and len([c for c in self.map_choices if c.checkState(0) == Qt.Checked])
 
     def nextId(self):
         if self.error() is not None:
@@ -232,8 +272,7 @@ class CredentialsPage(WizardPage):
     def __init__(self, settings, parent=None):
         super(CredentialsPage, self).__init__(settings, parent)
 
-        self.setTitle("Connect login")
-        self.setSubTitle("In order to access the Basemaps you need a valid Connect account")
+        self.setSubTitle(self.tr("Connect login: in order to access the Basemaps you need a valid Connect account"))
 
         nameLabel = QLabel("Username: ")
         self.username = QLineEdit()
@@ -253,7 +292,7 @@ class CredentialsPage(WizardPage):
         grid.addWidget(pwdLabel, 1, 0)
         grid.addWidget(self.password, 1, 1)
 
-        label = QLabel("""Please enter your Connect credentials in the form below.""")
+        label = QLabel(self.tr("Please enter your Connect credentials in the form below."))
         label.setWordWrap(True)
         layout = QVBoxLayout()
         layout.addWidget(label)
@@ -266,8 +305,7 @@ class ConclusionPage(WizardPage):
     def __init__(self, settings, parent=None):
         super(ConclusionPage, self).__init__(settings, parent)
 
-        self.setTitle(self.tr("Boundless Bsemaps setup complete"))
-        self.setSubTitle("")
+        self.setSubTitle(self.tr("Boundless Bsemaps setup complete"))
         self.add_watermark()
 
         self.label = QLabel("")
@@ -319,15 +357,17 @@ class FailurePage(WizardPage):
 class SetupWizard(QWizard):
     """Main setup wizard
 
-    The Wizard accepts a settings argument with pre-set value and return
-    collected values in the same argument.
+    The Wizard accepts a mutable dictionary settings argument with
+    pre-set value and return collected/modificed values in the same dictionary
+    argument.
 
     Accepted settings:
     - enabled: if the basemaps are enabled
     - authcfg: optional (it is the id, not the instance!)
     - username: optional (if not authcfg)
     - password: optional (if not authcfg)
-    - selected: optional
+    - selected: optional (string with '###' delimited list of selected masps)
+    - visible: optional (string with '###' delimited list of visible masps)
     - token_uri_: mandatory
     - maps_uri_: mandatory
     - project_template: optional
@@ -381,8 +421,10 @@ class SetupWizard(QWizard):
         if self.currentPage() == self.FailurePage:
             self.settings['has_error'] = True
         else:
-            maps = [mc.text() for mc in self.page(self.MapSelectionPage).map_choices if mc.isChecked()]
-            self.settings['selected'] = '#'.join(maps)
+            maps = [mc.text(0) for mc in self.page(self.MapSelectionPage).map_choices if mc.checkState(0) == Qt.Checked]
+            maps_visible = [self.page(self.MapSelectionPage).map_choices[i].text(0) for i in range(len(self.page(self.MapSelectionPage).map_visible_choices)) if self.page(self.MapSelectionPage).map_visible_choices[i].isChecked()]
+            self.settings['selected'] = '###'.join(maps)
+            self.settings['visible'] = '###'.join(maps_visible)
             self.settings['available_maps'] = self.settings.get('available_maps')
             self.settings['enabled'] = self.field('enabled')
             self.settings['use_current_authcfg'] = self.settings.get('authcfg') is not None and self.field('use_current_authcfg')

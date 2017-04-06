@@ -185,13 +185,14 @@ def get_available_maps(maps_uri):
     apparently this API method does not require auth"""
     # For testing purposes, we can also access to a json file directly
     if not maps_uri.startswith('http'):
-        return json.load(open(maps_uri))
-    t = mktemp()
-    q = QgsFileDownloader(QUrl(maps_uri), t)
-    loop = QEventLoop()
-    q.downloadExited.connect(loop.quit)
-    loop.exec_()
-    with open(t) as f:
-        j = json.load(f)
-    os.unlink(t)
+        j = json.load(open(maps_uri))
+    else:
+        t = mktemp()
+        q = QgsFileDownloader(QUrl(maps_uri), t)
+        loop = QEventLoop()
+        q.downloadExited.connect(loop.quit)
+        loop.exec_()
+        with open(t) as f:
+            j = json.load(f)
+        os.unlink(t)
     return [l for l in j if layer_is_supported(l)]

@@ -1,1 +1,111 @@
-[{"name": "Boundless Basemap", "attribution": "Boundlessgeo", "description": "A Boundless created OSM basemap", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/boundless/osm/{z}/{x}/{-y}.png", "accessList": ["bcs-basemap-boundless"], "styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Satellite Streets", "attribution": "Mapbox 2017", "description": "Mapbox Satellite Streets Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/satellite-streets/{z}/{x}/{y}.png", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Satellite", "attribution": "Mapbox 2017", "description": "Mapbox Satellite Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/satellite/{z}/{x}/{y}.png", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Outdoors", "attribution": "Mapbox 2017", "description": "Mapbox Outdoor Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/outdoors/{z}/{x}/{y}.png", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Light", "attribution": "Mapbox 2017", "description": "Mapbox LIght Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/light/{z}/{x}/{y}.png", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Dark", "attribution": "Mapbox 2017", "description": "Mapbox Dark Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/dark/{z}/{x}/{y}.png", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Streets", "attribution": "Mapbox 2017", "description": "Mapbox Street Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/streets/{z}/{x}/{y}.png", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PNG", "thumbnail": null}, {"name": "Mapbox Street Vector Tiles", "attribution": "Mapbox 2017", "description": "Mapbox Street Vector Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/mvt/{z}/{x}/{y}.pbf", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PBF", "thumbnail": null}, {"name": "Mapbox Traffic Vector Tiles", "attribution": "Mapbox 2017", "description": "Mapbox Traffic Vector Tiles", "endpoint": "http://api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/traffic/{z}/{x}/{y}.pbf", "accessList":["bcs-basemap-mapbox"],"styleUrl": "NA", "standard": "XYZ", "tileFormat": "PBF", "thumbnail": null}]
+[{
+	"name": "Mapbox Satellite Streets",
+	"attribution": "Mapbox 2017",
+	"provider": "Mapbox",
+	"description": "Mapbox Satellite Streets Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite-streets/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Satellite",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox Satellite Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Outdoors",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox Outdoor Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/outdoors/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Light",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox LIght Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/light/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Dark",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox Dark Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/dark/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Streets",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox Street Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/streets/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Street Vector Tiles",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox Street Vector Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/mvt/{z}/{x}/{y}.pbf",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PBF",
+	"thumbnail": null
+}, {
+	"name": "Mapbox Traffic Vector Tiles",
+	"attribution": "Mapbox 2017",
+    "provider": "Mapbox",
+	"description": "Mapbox Traffic Vector Tiles",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/mapbox/traffic/{z}/{x}/{y}.pbf",
+	"accessList": ["bcs-basemap-mapbox"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PBF",
+	"thumbnail": null
+}, {
+	"name": "Boundless Basemap",
+	"attribution": "Boundlessgeo 2017",
+    "provider": "Boundless",
+	"description": "A Boundless created OSM basemap",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/boundless/osm/{z}/{x}/{-y}.png",
+	"accessList": ["bcs-basemap-boundless"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}, {
+	"name": "Recent Imagery",
+	"attribution": "Digital Globe 2017",
+    "provider": "Digital Globe",
+	"description": "This imagery basemap is a curated snapshot of the earth, and has you covered whether your area of interest is local, regional or global. With resolutions from 30cm to 60cm, this imagery basemap delivers unmatched coverage across the globe.",
+	"endpoint": "http://api.test.boundlessgeo.io/v1/basemaps/dg/recent/{z}/{x}/{y}.png",
+	"accessList": ["bcs-basemap-dg"],
+	"styleUrl": "NA",
+	"standard": "XYZ",
+	"tileFormat": "PNG",
+	"thumbnail": null
+}]

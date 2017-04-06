@@ -1,5 +1,5 @@
 [general]
-name=boundlessbasemaps
+name=Boundless Basemaps
 description=This plugin adds selected Boundless Base Maps to the default project.
 about=Boundless Desktop comes with a whole set of amazing base maps that you can add to your default QGIS project. With this plugin you can configure this feature interactively.
 category=
@@ -9,7 +9,7 @@ version=1.0
 author=Boundless
 email=info@boundlessgeo.com
 
-roles=desktop-qgis-plugin-dev
+roles=desktop-qgis-plugin-dev,desktop-qgis-plugin-basemaps
 
 icon=icons/desktop.svg
 

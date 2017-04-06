@@ -9,10 +9,7 @@
       <customproperties/>
   </layer-tree-layer-->
     
-            <layer-tree-layer expanded="1" checked="Qt::Checked" id="Boundless_BasemapXXXXXXX">
-                <customproperties/>
-            </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Satellite_StreetsXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Satellite_StreetsXXXXXXX">
                 <customproperties/>
             </layer-tree-layer>
             <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_SatelliteXXXXXXX">
@@ -30,10 +27,7 @@
             <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_StreetsXXXXXXX">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Street_Vector_TilesXXXXXXX">
-                <customproperties/>
-            </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Traffic_Vector_TilesXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Recent_ImageryXXXXXXX">
                 <customproperties/>
             </layer-tree-layer>
 </layer-tree-group>
@@ -63,23 +57,18 @@
     <rendermaptile>0</rendermaptile>
     <layer_coordinate_transform_info>
       <!--layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="alayerXXXXXXX"/-->
-      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Boundless_BasemapXXXXXXX"/>
+      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_Satellite_StreetsXXXXXXX"/>
     </layer_coordinate_transform_info>
   </mapcanvas>
   <layer-tree-canvas>
     <custom-order enabled="0">
       <!--item>alayer20170322140634990</item-->
-      <item>Boundless_BasemapXXXXXXX</item><item>Mapbox_Satellite_StreetsXXXXXXX</item><item>Mapbox_SatelliteXXXXXXX</item><item>Mapbox_OutdoorsXXXXXXX</item><item>Mapbox_LightXXXXXXX</item><item>Mapbox_DarkXXXXXXX</item><item>Mapbox_StreetsXXXXXXX</item><item>Mapbox_Street_Vector_TilesXXXXXXX</item><item>Mapbox_Traffic_Vector_TilesXXXXXXX</item>
+      <item>Mapbox_Satellite_StreetsXXXXXXX</item><item>Mapbox_SatelliteXXXXXXX</item><item>Mapbox_OutdoorsXXXXXXX</item><item>Mapbox_LightXXXXXXX</item><item>Mapbox_DarkXXXXXXX</item><item>Mapbox_StreetsXXXXXXX</item><item>Recent_ImageryXXXXXXX</item>
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
     
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Boundless Basemap" showFeatureCount="0">
-              <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Boundless_BasemapXXXXXXX"/>
-              </filegroup>
-            </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Satellite Streets" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Mapbox Satellite Streets" showFeatureCount="0">
               <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="Mapbox_Satellite_StreetsXXXXXXX"/>
               </filegroup>
@@ -109,14 +98,9 @@
                 <legendlayerfile isInOverview="0" layerid="Mapbox_StreetsXXXXXXX"/>
               </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Street Vector Tiles" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Recent Imagery" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_Street_Vector_TilesXXXXXXX"/>
-              </filegroup>
-            </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Traffic Vector Tiles" showFeatureCount="0">
-              <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_Traffic_Vector_TilesXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Recent_ImageryXXXXXXX"/>
               </filegroup>
             </legendlayer>
   </legend>
@@ -128,53 +112,8 @@
     <xmax>20037508.34278924390673637</xmax>
     <ymax>20037508.34278924390673637</ymax>
    </extent>
-   <id>Boundless_BasemapXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/boundless/osm/%7Bz%7D/%7Bx%7D/%7B-y%7D.png&amp;authcfg=YYYYYY</datasource>
-   <keywordList>
-    <value></value>
-   </keywordList>
-   <layername>Boundless Basemap</layername>
-   <srs>
-    <spatialrefsys>
-     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
-     <srsid>3857</srsid>
-     <srid>3857</srid>
-     <authid>EPSG:3857</authid>
-     <description>WGS 84 / Pseudo Mercator</description>
-     <projectionacronym>merc</projectionacronym>
-     <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>false</geographicflag>
-    </spatialrefsys>
-   </srs>
-   <customproperties>
-    <property key="identify/format" value="Undefined"/>
-   </customproperties>
-   <provider>wms</provider>
-   <noData>
-    <noDataList bandNo="1" useSrcNoData="0"/>
-   </noData>
-   <map-layer-style-manager current="">
-    <map-layer-style name=""/>
-   </map-layer-style-manager>
-   <pipe>
-    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
-     <rasterTransparency/>
-    </rasterrenderer>
-    <brightnesscontrast brightness="0" contrast="0"/>
-    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-    <rasterresampler maxOversampling="2"/>
-   </pipe>
-   <blendMode>0</blendMode>
-  </maplayer>
-  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
-   <extent>
-    <xmin>-20037508.34278924390673637</xmin>
-    <ymin>-20037508.34278925508260727</ymin>
-    <xmax>20037508.34278924390673637</xmax>
-    <ymax>20037508.34278924390673637</ymax>
-   </extent>
    <id>Mapbox_Satellite_StreetsXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/satellite-streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite-streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
@@ -219,7 +158,7 @@
     <ymax>20037508.34278924390673637</ymax>
    </extent>
    <id>Mapbox_SatelliteXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/satellite/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
@@ -264,7 +203,7 @@
     <ymax>20037508.34278924390673637</ymax>
    </extent>
    <id>Mapbox_OutdoorsXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/outdoors/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/outdoors/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
@@ -309,7 +248,7 @@
     <ymax>20037508.34278924390673637</ymax>
    </extent>
    <id>Mapbox_LightXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/light/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/light/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
@@ -354,7 +293,7 @@
     <ymax>20037508.34278924390673637</ymax>
    </extent>
    <id>Mapbox_DarkXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/dark/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/dark/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
@@ -399,7 +338,7 @@
     <ymax>20037508.34278924390673637</ymax>
    </extent>
    <id>Mapbox_StreetsXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
@@ -443,57 +382,12 @@
     <xmax>20037508.34278924390673637</xmax>
     <ymax>20037508.34278924390673637</ymax>
    </extent>
-   <id>Mapbox_Street_Vector_TilesXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/mvt/%7Bz%7D/%7Bx%7D/%7By%7D.pbf&amp;authcfg=YYYYYY</datasource>
+   <id>Recent_ImageryXXXXXXX</id>
+   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/dg/recent/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
    <keywordList>
     <value></value>
    </keywordList>
-   <layername>Mapbox Street Vector Tiles</layername>
-   <srs>
-    <spatialrefsys>
-     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
-     <srsid>3857</srsid>
-     <srid>3857</srid>
-     <authid>EPSG:3857</authid>
-     <description>WGS 84 / Pseudo Mercator</description>
-     <projectionacronym>merc</projectionacronym>
-     <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>false</geographicflag>
-    </spatialrefsys>
-   </srs>
-   <customproperties>
-    <property key="identify/format" value="Undefined"/>
-   </customproperties>
-   <provider>wms</provider>
-   <noData>
-    <noDataList bandNo="1" useSrcNoData="0"/>
-   </noData>
-   <map-layer-style-manager current="">
-    <map-layer-style name=""/>
-   </map-layer-style-manager>
-   <pipe>
-    <rasterrenderer opacity="1" alphaBand="-1" band="1" type="singlebandcolordata">
-     <rasterTransparency/>
-    </rasterrenderer>
-    <brightnesscontrast brightness="0" contrast="0"/>
-    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
-    <rasterresampler maxOversampling="2"/>
-   </pipe>
-   <blendMode>0</blendMode>
-  </maplayer>
-  <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
-   <extent>
-    <xmin>-20037508.34278924390673637</xmin>
-    <ymin>-20037508.34278925508260727</ymin>
-    <xmax>20037508.34278924390673637</xmax>
-    <ymax>20037508.34278924390673637</ymax>
-   </extent>
-   <id>Mapbox_Traffic_Vector_TilesXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.boundlessgeo.io/v1/boundlessbasemaps/mapbox/traffic/%7Bz%7D/%7Bx%7D/%7By%7D.pbf&amp;authcfg=YYYYYY</datasource>
-   <keywordList>
-    <value></value>
-   </keywordList>
-   <layername>Mapbox Traffic Vector Tiles</layername>
+   <layername>Recent Imagery</layername>
    <srs>
     <spatialrefsys>
      <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
