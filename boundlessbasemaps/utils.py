@@ -180,6 +180,26 @@ def layer_is_supported(lyr):
             lyr['standard'] == 'XYZ')
 
 
+def get_available_providers(providers_uri):
+    """Fetch the list of available providers from BCS endpoint,
+    apparently this API method does not require auth"""
+    # For testing purposes, we can also access to a json file directly
+    if not providers_uri.startswith('http'):
+        j = json.load(open(providers_uri))
+    else:
+        t = mktemp()
+        q = QgsFileDownloader(QUrl(providers_uri), t)
+        loop = QEventLoop()
+        q.downloadExited.connect(loop.quit)
+        loop.exec_()
+        if not os.path.isfile(t):
+            return []
+        with open(t) as f:
+            j = json.load(f)
+        os.unlink(t)
+    return j
+
+
 def get_available_maps(maps_uri):
     """Fetch the list of available and QGIS supported maps from BCS endpoint,
     apparently this API method does not require auth"""
@@ -192,6 +212,8 @@ def get_available_maps(maps_uri):
         loop = QEventLoop()
         q.downloadExited.connect(loop.quit)
         loop.exec_()
+        if not os.path.isfile(t):
+            return []
         with open(t) as f:
             j = json.load(f)
         os.unlink(t)

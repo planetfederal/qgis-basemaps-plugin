@@ -41,6 +41,13 @@
 	 "default": "https://api.test.boundlessgeo.io/v1/basemaps/",
 	 "group": "Basemaps advanced configuration"
     },
+	{"name":"providers_uri",
+	 "label": "BCS available providers URI",
+	 "description": "URI to get the available providers",
+	 "type": "string",
+	 "default": "https://api.test.boundlessgeo.io/v1/basemaps/providers",
+	 "group": "Basemaps advanced configuration"
+    },
 	{"name":"first_time_setup_done",
 	 "label": "First time configuration run",
 	 "description": "The boundlessbasemaps plugin first time configuration has been executed",

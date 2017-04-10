@@ -123,7 +123,7 @@ class ConfirmCredentialsPage(WizardPage):
 
     def __init__(self, settings, parent=None):
         super(ConfirmCredentialsPage, self).__init__(settings, parent)
-        self.setSubTitle(self.tr("Connect account confirmation: you already have a Connect account: do you want to use it?"))
+        self.setSubTitle(self.tr("Connect account confirmation"))
 
         bh = QButtonGroup()
         self.optin = QRadioButton(self.tr("Use current account!"))
@@ -134,7 +134,7 @@ class ConfirmCredentialsPage(WizardPage):
         bh.addButton(self.optin)
         bh.addButton(self.optout)
 
-        label = QLabel(self.tr("If you do not want to use your current account, you will be prompted to enter the credential for another account in the next step."))
+        label = QLabel(self.tr("You already have a Connect account, do you want to use it? If you do not want to use your current account, you will be prompted to enter the credential for another account in the next step."))
         label.setWordWrap(True)
         self.label2 = QLabel()
 
@@ -180,79 +180,99 @@ class MapSelectionPage(WizardPage):
         self.maplist.setFlat(True)
         self.tree = None
 
+
+    def _get_provider_display(self, provider_id):
+        try:
+            for p in self.available_providers:
+                if p['id'] == provider_id:
+                    return p['name']
+        except:
+            pass
+        return provider_id
+
+
     def initializePage(self):
         # Get available maps
         if self.available_maps is None:
             selected = [e for e in self.settings.get('selected', "").split('###') if e != '']
             visible = [e for e in self.settings.get('visible', "").split('###') if e != '']
-            try:
-                self.available_maps = utils.get_available_maps(self.settings.get('maps_uri'))
-                self.settings['available_maps'] = self.available_maps
-                self.map_choices = []
-                if self.available_maps is not None and len(self.available_maps):
-                    # Collect providers
-                    providers = set()
-                    for m in self.available_maps:
-                        p = m['provider'] if 'provider' in m and m['provider'] else m['attribution']
-                        if p not in providers:
-                            providers.add(p)
-                    providers = list(providers)
-                    providers.sort()
-                    # Build the tree
-                    self.tree = QTreeWidget()
-                    self.tree.setColumnCount(2)
-                    self.tree.setHeaderLabels([self.tr("Available maps"), self.tr("Visible")])
-                    root = QTreeWidgetItem(self.tree)
-                    root.setText(0, self.tr("All maps"))
-                    root.setFlags(root.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
-                    root.setCheckState(0, Qt.Checked)
-
-                    for p in providers:
-                        parent = QTreeWidgetItem(root)
-                        parent.setText(0, p)
-                        parent.setFlags(parent.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+            self.available_maps = utils.get_available_maps(self.settings.get('maps_uri'))
+            if not self.available_maps:
+                self.set_error(self.tr("There was an error fetching the list of maps from the server! Please check your internet connection and retry later!"))
+            self.available_providers = utils.get_available_providers(self.settings.get('providers_uri'))
+            if not self.available_providers:
+                # self.set_error(self.tr("There was an error fetching the list of providers from the server! Please check your internet connection and retry later!"))
+                pass  #  Not a critical error
+                    
+            if not self.error():
+                try:
+                    self.settings['available_maps'] = self.available_maps
+                    self.settings['available_providers'] = self.available_providers
+                    self.map_choices = []
+                    if self.available_maps is not None and len(self.available_maps):
+                        # Collect providers
+                        providers = set()
                         for m in self.available_maps:
-                            if (m['provider'] if 'provider' in m  and m['provider'] else m['attribution']) == p:
-                                child = QTreeWidgetItem(parent)
-                                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
-                                child.setText(0, m['name'])
-                                viscb = QCheckBox()
-                                if len(visible):
-                                    viscb.setChecked(m['name'] in visible)
-                                else:
-                                    viscb.setChecked(False)
-                                self.tree.setItemWidget(child, 1, viscb)
-                                self.map_visible_choices.append(viscb)
-                                if m['description']:
-                                    child.setToolTip(0, m['description'])
-                                if len(selected):
-                                    if m['name'] in selected:
-                                        child.setCheckState(0, Qt.Checked)
+                            p = m['provider'] if 'provider' in m and m['provider'] else m['attribution']
+                            if p not in providers:
+                                providers.add(p)
+                        providers = list(providers)
+                        providers.sort()
+                        # Build the tree
+                        self.tree = QTreeWidget()
+                        self.tree.setColumnCount(2)
+                        self.tree.setHeaderLabels([self.tr("Available maps"), self.tr("Visible")])
+                        root = QTreeWidgetItem(self.tree)
+                        root.setText(0, self.tr("All maps"))
+                        root.setFlags(root.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+                        root.setCheckState(0, Qt.Checked)
+
+                        for p in providers:
+                            parent = QTreeWidgetItem(root)
+                            parent.setText(0, self._get_provider_display(p))
+                            parent.setFlags(parent.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+                            for m in self.available_maps:
+                                if (m['provider'] if 'provider' in m  and m['provider'] else m['attribution']) == p:
+                                    child = QTreeWidgetItem(parent)
+                                    child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
+                                    child.setText(0, m['name'])
+                                    viscb = QCheckBox()
+                                    if len(visible):
+                                        viscb.setChecked(m['name'] in visible)
                                     else:
-                                        child.setCheckState(0, Qt.Unchecked)
-                                else:
-                                    child.setCheckState(0, Qt.Checked)
-                                self.map_choices.append(child)
+                                        viscb.setChecked(False)
+                                    self.tree.setItemWidget(child, 1, viscb)
+                                    self.map_visible_choices.append(viscb)
+                                    if m['description']:
+                                        child.setToolTip(0, m['description'])
+                                    if len(selected):
+                                        if m['name'] in selected:
+                                            child.setCheckState(0, Qt.Checked)
+                                        else:
+                                            child.setCheckState(0, Qt.Unchecked)
+                                    else:
+                                        child.setCheckState(0, Qt.Checked)
+                                    self.map_choices.append(child)
 
-                    def set_visibility_state():
-                        '''Control the status of the visibility widgets'''
-                        i = 0
-                        for w in self.map_choices:
-                            self.map_visible_choices[i].setEnabled(self.map_choices[i].checkState(0) == Qt.Checked)
-                            i += 1
+                        def set_visibility_state():
+                            '''Control the status of the visibility widgets'''
+                            i = 0
+                            for w in self.map_choices:
+                                self.map_visible_choices[i].setEnabled(self.map_choices[i].checkState(0) == Qt.Checked)
+                                i += 1
 
-                    set_visibility_state()
-                    self.tree.model().dataChanged.connect(set_visibility_state)
-                    self.tree.model().dataChanged.connect(self.completeChanged.emit)
-                    self.tree.header().resizeSection(0, 600)
-                    self.tree.header().resizeSection(1, 100)
-                    self.tree.expandAll()
-                    self.maplist_layout.addWidget(self.tree)
-                else:
-                    self.set_error(self.tr("The list of available maps is empty!"))
-            except Exception as e:
-                raise e
-                self.set_error(self.tr("There was an error fetching the list of maps from the server! Please check your internet connection and retry later! Error: %s") % e)
+                        set_visibility_state()
+                        self.tree.model().dataChanged.connect(set_visibility_state)
+                        self.tree.model().dataChanged.connect(self.completeChanged.emit)
+                        self.tree.header().resizeSection(0, 600)
+                        self.tree.header().resizeSection(1, 100)
+                        self.tree.expandAll()
+                        self.maplist_layout.addWidget(self.tree)
+                    else:
+                        self.set_error(self.tr("The list of available maps is empty!"))
+                except Exception as e:
+                    self.set_error(self.tr("There was an error fetching the list of maps from the server! Please check your internet connection and retry later! Error: %s") % e)
+
             self.setLayout(self.maplist_layout)
             super(MapSelectionPage, self).initializePage()
 
@@ -321,10 +341,10 @@ class ConclusionPage(WizardPage):
     def initializePage(self):
         if self.field('enabled'):
             self.setSubTitle(self.tr("The Basemaps default project will now be created!"))
-            self.label.setText(self.tr("""You can re-run this setup wizard at any time from the <tt>Plugins -> Basemaps -> Setup</tt> menu"""))
+            self.label.setText(self.tr("""You can re-run this setup wizard at any time from the <tt>Plugins -> Basemaps -> Setup Wizard</tt> menu"""))
         else:
             self.setSubTitle(self.tr("You chose to not use the Basemaps."))
-            self.label.setText(self.tr("If you change your mind, you can enable the Basemaps re-running this setup wizard from the <tt>Plugins -> Basemaps -> Setup</tt> menu"))
+            self.label.setText(self.tr("If you change your mind, you can enable the Basemaps re-running this setup wizard from the <tt>Plugins -> Basemaps -> Setup Wizard</tt> menu"))
         super(ConclusionPage, self).initializePage()
 
 
@@ -370,11 +390,13 @@ class SetupWizard(QWizard):
     - visible: optional (string with '###' delimited list of visible masps)
     - token_uri_: mandatory
     - maps_uri_: mandatory
+    - providers_uri_: mandatory
     - project_template: optional
 
     Additional returned values in settings:
     - has_error: this is the only available setting in case of errors
     - available_maps
+    - available_providers
     - use_current_authcfg
 
     """
@@ -425,7 +447,6 @@ class SetupWizard(QWizard):
             maps_visible = [self.page(self.MapSelectionPage).map_choices[i].text(0) for i in range(len(self.page(self.MapSelectionPage).map_visible_choices)) if self.page(self.MapSelectionPage).map_visible_choices[i].isChecked()]
             self.settings['selected'] = '###'.join(maps)
             self.settings['visible'] = '###'.join(maps_visible)
-            self.settings['available_maps'] = self.settings.get('available_maps')
             self.settings['enabled'] = self.field('enabled')
             self.settings['use_current_authcfg'] = self.settings.get('authcfg') is not None and self.field('use_current_authcfg')
             if not self.settings['use_current_authcfg']:

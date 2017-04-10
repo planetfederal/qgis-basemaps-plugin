@@ -1,0 +1,21 @@
+[{
+	"id": "mapbox",
+	"name": "Mapbox",
+	"description": "Mapbox is a mapping platform for developers. Our building blocks make it easy to integrate location into any mobile or online application. We're changing the way people move around cities and understand our planet.",
+	"url": "http://mapbox.com"
+}, {
+	"id": "planet",
+	"name": "Planet",
+	"description": "Founded in 2010 by a team of ex-NASA scientists, Planet is driven by a mission to image the entire Earth every day, and make global change visible, accessible, and actionable.",
+	"url": "http://planet.com"
+}, {
+	"id": "digitalglobe",
+	"name": "Digital Globe",
+	"description": "DigitalGlobe is the world’s leading provider of high-resolution Earth imagery, data and analysis.",
+	"url": "https://www.digitalglobe.com"
+}, {
+	"id": "boundless",
+	"name": "Boundless",
+	"description": "Boundless is a provider of Open Source Geospatial software",
+	"url": "http://boundlessgeo.com"
+}]

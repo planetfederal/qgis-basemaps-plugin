@@ -14,7 +14,13 @@ import unittest
 import tempfile
 
 
+__author__ = 'Alessandro Pasotti'
+__date__ = 'March 2017'
+__copyright__ = '(C) 2017 Boundless, http://boundlessgeo.com'
+
+
 MAPS_URI = "https://api.test.boundlessgeo.io/v1/basemaps/"
+PROVIDERS_URI = "https://api.dev.boundlessgeo.io/v1/basemaps/providers/"
 TOKEN_URI = "https://api.test.boundlessgeo.io/v1/token/oauth/"
 AUTHDB_MASTERPWD = "pass"
 TEST_AUTHCFG_ID = "cone999"  # test id
@@ -76,6 +82,7 @@ class BasemapsTest(unittest.TestCase):
     def setUpClass(cls):
         cls.data_dir = os.path.join(os.path.dirname(__file__), 'data')
         cls.local_maps_uri = os.path.join(cls.data_dir, 'basemaps.json')
+        cls.local_providers_uri = os.path.join(cls.data_dir, 'providers.json')
         cls.tpl_path = os.path.join(
             os.path.dirname(__file__), os.path.pardir, 'project_default.qgs.tpl')
         cls.authcfg = None
@@ -144,6 +151,15 @@ class BasemapsTest(unittest.TestCase):
                                  u'Recent Imagery',
                                  ])
 
+    def test_utils_get_available_providers(self):
+        """Check available maps retrieval from local test json file"""
+        self.assertTrue(utils.bcs_supported())
+        maps = utils.get_available_providers(os.path.join(self.data_dir,
+                                                     'providers.json'))
+        names = [m['id'] for m in maps]
+        names.sort()
+        self.assertEqual(names, [u'boundless', u'digitalglobe', u'mapbox', u'planet'])
+
     def test_utils_create_default_auth_project(self):
         """Create the default project with authcfg"""
         self.assertTrue(utils.bcs_supported())
@@ -185,6 +201,7 @@ class BasemapsTest(unittest.TestCase):
         settings = {
             "token_uri": TOKEN_URI,
             "maps_uri": self.local_maps_uri,
+            "providers_uri": self.local_providers_uri,
             "visible": u'Mapbox Streets',
             "selected": u'Mapbox Satellite Streets###Mapbox Streets'
         }
@@ -215,6 +232,7 @@ class BasemapsTest(unittest.TestCase):
         settings = {
             "token_uri": TOKEN_URI,
             "maps_uri": self.local_maps_uri,
+            "providers_uri": self.local_providers_uri,
         }
         w = SetupWizard(settings)
         w.show()
@@ -244,6 +262,7 @@ class BasemapsTest(unittest.TestCase):
         settings = {
             "token_uri": TOKEN_URI,
             "maps_uri": self.local_maps_uri,
+            "providers_uri": self.local_providers_uri,
             "authcfg": TEST_AUTHCFG_ID
         }
         w = SetupWizard(settings)
@@ -271,6 +290,7 @@ class BasemapsTest(unittest.TestCase):
         settings = {
             "token_uri": TOKEN_URI,
             "maps_uri": self.local_maps_uri,
+            "providers_uri": self.local_providers_uri,
             "authcfg": 'fffffff',
         }
         w = SetupWizard(settings)
@@ -301,6 +321,7 @@ class BasemapsTest(unittest.TestCase):
         # Forge some settings:
         settings = {
             "token_uri": TOKEN_URI,
+            "providers_uri": self.local_providers_uri,
             "maps_uri": self.local_maps_uri,
             "username": 'my_username',
             "password": 'my_password',
@@ -349,14 +370,9 @@ def _test_wizard_interactive():
     settings = {
         "token_uri": TOKEN_URI,
         "maps_uri": MAPS_URI,
+        "providers_uri": PROVIDERS_URI,
         "username": 'my_username',
         "password": 'my_password',
-    }
-    settings = {
-        "token_uri": TOKEN_URI,
-        "maps_uri": os.path.join(os.path.dirname(__file__), 'data', 'basemaps.json'),
-        "visible": u'Mapbox Streets',
-        "selected": u'Mapbox Satellite Streets###Mapbox Streets'
     }
     w = SetupWizard(settings)
     import pprint
