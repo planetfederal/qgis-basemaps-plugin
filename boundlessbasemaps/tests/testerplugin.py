@@ -113,7 +113,7 @@ class BasemapsTest(unittest.TestCase):
         tpl = re.sub(r'authcfg=[a-z0-9]+', 'authcfg=YYYYYY', tpl)
         return tpl
 
-    @unittest.skipIf(os.environ.get('TRAVIS'))
+    @unittest.skipIf(os.environ.get('TRAVIS'), "Do not run this online test on travis!")
     def test_utils_get_available_maps_online(self):
         """Check available maps online retrieval from BCS endpoint"""
         self.assertTrue(utils.bcs_supported())
