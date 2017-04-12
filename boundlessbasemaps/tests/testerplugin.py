@@ -113,26 +113,6 @@ class BasemapsTest(unittest.TestCase):
         tpl = re.sub(r'authcfg=[a-z0-9]+', 'authcfg=YYYYYY', tpl)
         return tpl
 
-    @unittest.skipIf(os.environ.get('TRAVIS'), "Do not run this online test on travis!")
-    def test_utils_get_available_maps_online(self):
-        """Check available maps online retrieval from BCS endpoint"""
-        self.assertTrue(utils.bcs_supported())
-        maps = utils.get_available_maps(MAPS_URI)
-        names = [m['name'] for m in maps]
-        names.sort()
-        self.assertEqual(names, [
-                                 #u'Boundless Basemap',# unsupported
-                                 u'Mapbox Dark',
-                                 u'Mapbox Light',
-                                 u'Mapbox Outdoors',
-                                 u'Mapbox Satellite',
-                                 u'Mapbox Satellite Streets',
-                                 #u'Mapbox Street Vector Tiles', # unsupported
-                                 u'Mapbox Streets',
-                                 #u'Mapbox Traffic Vector Tiles'# unsupported
-                                 u'Recent Imagery',
-                                 ])
-
     def test_utils_get_available_maps(self):
         """Check available maps retrieval from local test json file"""
         self.assertTrue(utils.bcs_supported())
