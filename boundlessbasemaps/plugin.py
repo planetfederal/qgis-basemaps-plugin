@@ -70,6 +70,7 @@ class Basemaps:
         settings = {
             "maps_uri": pluginSetting('maps_uri'),
             "token_uri": pluginSetting('token_uri'),
+            "providers_uri": pluginSetting('providers_uri'),
             "username": username,
             "password": password,
             "authcfg": pluginSetting('authcfg'),
