@@ -72,7 +72,8 @@ class WizardPage(QWizardPage):
             self.error_widget.show()
 
     def add_watermark(self):
-        self.bg = QPixmap(os.path.join(self.imgpath, "wizard_watermark.png")).scaled(QSize(300, 600))
+        metrics = QApplication.fontMetrics().height()
+        self.bg = QPixmap(os.path.join(self.imgpath, "wizard_watermark.png")).scaled(QSize(metrics * 9, metrics * 18))
         self.setPixmap(QWizard.WatermarkPixmap, self.bg)
 
 
@@ -226,7 +227,7 @@ class MapSelectionPage(WizardPage):
                         root = QTreeWidgetItem(self.tree)
                         root.setText(0, self.tr("All maps"))
                         root.setFlags(root.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
-                        root.setCheckState(0, Qt.Checked)
+                        root.setCheckState(0, Qt.Unchecked if len(visible) and m['name'] not in selected else Qt.Checked)
 
                         for p in providers:
                             parent = QTreeWidgetItem(root)
