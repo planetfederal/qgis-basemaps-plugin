@@ -28,8 +28,9 @@ __copyright__ = '(C) 2017 Boundless, http://boundlessgeo.com'
 from qgis.PyQt.QtWidgets import (QWizard, QWizardPage, QLabel, QVBoxLayout,
                                  QLineEdit, QGridLayout, QCheckBox,
                                  QButtonGroup, QRadioButton, QGroupBox,
-                                 QTreeWidget, QTreeWidgetItem)
-from qgis.PyQt.QtGui import QPixmap, QIcon
+                                 QTreeWidget, QTreeWidgetItem, QHeaderView,
+                                 QHBoxLayout, QWidget)
+from qgis.PyQt.QtGui import QPixmap, QIcon, QApplication
 from qgis.PyQt.QtCore import Qt, QSize
 from boundlessbasemaps import utils
 
@@ -203,7 +204,7 @@ class MapSelectionPage(WizardPage):
             if not self.available_providers:
                 # self.set_error(self.tr("There was an error fetching the list of providers from the server! Please check your internet connection and retry later!"))
                 pass  #  Not a critical error
-                    
+
             if not self.error():
                 try:
                     self.settings['available_maps'] = self.available_maps
@@ -241,7 +242,12 @@ class MapSelectionPage(WizardPage):
                                         viscb.setChecked(m['name'] in visible)
                                     else:
                                         viscb.setChecked(False)
-                                    self.tree.setItemWidget(child, 1, viscb)
+                                    w = QWidget()
+                                    l = QHBoxLayout()
+                                    l.setAlignment(Qt.AlignCenter)
+                                    l.addWidget(viscb)
+                                    w.setLayout(l)
+                                    self.tree.setItemWidget(child, 1, w)
                                     self.map_visible_choices.append(viscb)
                                     if m['description']:
                                         child.setToolTip(0, m['description'])
@@ -264,8 +270,8 @@ class MapSelectionPage(WizardPage):
                         set_visibility_state()
                         self.tree.model().dataChanged.connect(set_visibility_state)
                         self.tree.model().dataChanged.connect(self.completeChanged.emit)
-                        self.tree.header().resizeSection(0, 600)
-                        self.tree.header().resizeSection(1, 100)
+                        self.tree.header().setResizeMode(0, QHeaderView.ResizeToContents)
+                        self.tree.headerItem().setTextAlignment(1, Qt.AlignCenter)
                         self.tree.expandAll()
                         self.maplist_layout.addWidget(self.tree)
                     else:
@@ -428,7 +434,8 @@ class SetupWizard(QWizard):
             self.setWizardStyle(QWizard.ModernStyle)
 
         imgpath = os.path.join(os.path.dirname(__file__), os.path.pardir, "images")
-        self.lg = QPixmap(QIcon(os.path.join(imgpath, "wizard_logo.svg")).pixmap(QSize(200, 200)))
+        metrics = QApplication.fontMetrics().height()
+        self.lg = QPixmap(QIcon(os.path.join(imgpath, "wizard_logo.svg")).pixmap(QSize(metrics * 6 , metrics * 6)))
         self.setPixmap(QWizard.LogoPixmap, self.lg)
         # Other possible wizard decorations
         #self.bn = QPixmap(QIcon(os.path.join(imgpath, "wizard_banner.svg")).pixmap(QSize(800, 300)))

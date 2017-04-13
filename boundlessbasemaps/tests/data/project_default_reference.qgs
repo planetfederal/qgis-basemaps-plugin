@@ -5,29 +5,29 @@
   <evaluateDefaultValues active="0"/>
   <layer-tree-group expanded="1" checked="Qt::Checked" name="">
     <customproperties/>
-    <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX">
+    <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX" name="bluemarble">
       <customproperties/>
   </layer-tree-layer-->
     
-            <layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_Satellite_StreetsXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_Satellite_StreetsXXXXXXX" name="Mapbox Satellite Streets">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_SatelliteXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_SatelliteXXXXXXX" name="Mapbox Satellite">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_OutdoorsXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_OutdoorsXXXXXXX" name="Mapbox Outdoors">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_LightXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="Mapbox_LightXXXXXXX" name="Mapbox Light">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_DarkXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_DarkXXXXXXX" name="Mapbox Dark">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_StreetsXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Mapbox_StreetsXXXXXXX" name="Mapbox Streets">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Recent_ImageryXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="Recent_ImageryXXXXXXX" name="Recent Imagery">
                 <customproperties/>
             </layer-tree-layer>
 </layer-tree-group>
@@ -57,7 +57,7 @@
     <rendermaptile>0</rendermaptile>
     <layer_coordinate_transform_info>
       <!--layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="alayerXXXXXXX"/-->
-      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_Satellite_StreetsXXXXXXX"/>
+      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_Satellite_StreetsXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_SatelliteXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_OutdoorsXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_LightXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_DarkXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Mapbox_StreetsXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="Recent_ImageryXXXXXXX"/>
     </layer_coordinate_transform_info>
   </mapcanvas>
   <layer-tree-canvas>
@@ -68,39 +68,39 @@
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
     
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Mapbox Satellite Streets" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Satellite Streets" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_Satellite_StreetsXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Mapbox_Satellite_StreetsXXXXXXX" visible="0"/>
               </filegroup>
             </legendlayer>
             <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Satellite" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_SatelliteXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Mapbox_SatelliteXXXXXXX" visible="0"/>
               </filegroup>
             </legendlayer>
             <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Outdoors" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_OutdoorsXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Mapbox_OutdoorsXXXXXXX" visible="0"/>
               </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Light" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Mapbox Light" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_LightXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Mapbox_LightXXXXXXX" visible="1"/>
               </filegroup>
             </legendlayer>
             <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Dark" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_DarkXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Mapbox_DarkXXXXXXX" visible="0"/>
               </filegroup>
             </legendlayer>
             <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Mapbox Streets" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Mapbox_StreetsXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Mapbox_StreetsXXXXXXX" visible="0"/>
               </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Recent Imagery" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Recent Imagery" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Recent_ImageryXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="Recent_ImageryXXXXXXX" visible="1"/>
               </filegroup>
             </legendlayer>
   </legend>

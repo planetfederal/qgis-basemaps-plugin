@@ -126,7 +126,7 @@ def setup_oauth(username, password, basemaps_token_uri, authcfg_id=AUTHCFG_ID, a
     return None
 
 
-def create_default_project(available_maps, project_template, authcfg=None):
+def create_default_project(available_maps, visible_maps, project_template, authcfg=None):
     """Create a default project from a template and return it as a string"""
     layers = []
     for m in available_maps:
@@ -146,9 +146,9 @@ def create_default_project(available_maps, project_template, authcfg=None):
         custom_order = ""
         legend_layer = ""
         layer_coordinate_transform = ""
-        is_first = True
         for layer in layers:
-            values =  {'name': layer.name(), 'id': layer.id(), 'visible': ('1' if is_first else '0'), 'checked': ('Qt::Checked'  if is_first else 'Qt::Unchecked')}
+            is_visible = layer.name() in visible_maps
+            values = {'name': layer.name(), 'id': layer.id(), 'visible': ('1' if is_visible else '0'), 'checked': ('Qt::Checked' if is_visible else 'Qt::Unchecked')}
             custom_order += "<item>%s</item>" % layer.id()
             layer_tree_layer += """
             <layer-tree-layer expanded="1" checked="%(checked)s" id="%(id)s" name="%(name)s">
@@ -161,7 +161,6 @@ def create_default_project(available_maps, project_template, authcfg=None):
               </filegroup>
             </legendlayer>""" % values
             layer_coordinate_transform += '<layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="%s"/>' % layer.id()
-            is_first = False
         tpl = ""
         with open(project_template, 'rb') as f:
             tpl = f.read()

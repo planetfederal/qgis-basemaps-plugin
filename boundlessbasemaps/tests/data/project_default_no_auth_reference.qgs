@@ -5,14 +5,14 @@
   <evaluateDefaultValues active="0"/>
   <layer-tree-group expanded="1" checked="Qt::Checked" name="">
     <customproperties/>
-    <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX">
+    <!--layer-tree-layer expanded="1" checked="Qt::Unchecked" id="bluemarbleXXXXXXX" name="bluemarble">
       <customproperties/>
   </layer-tree-layer-->
     
-            <layer-tree-layer expanded="1" checked="Qt::Checked" id="OSM_Basemap_AXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="OSM_Basemap_AXXXXXXX" name="OSM Basemap A">
                 <customproperties/>
             </layer-tree-layer>
-            <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="OSM_Basemap_BXXXXXXX">
+            <layer-tree-layer expanded="1" checked="Qt::Checked" id="OSM_Basemap_BXXXXXXX" name="OSM Basemap B">
                 <customproperties/>
             </layer-tree-layer>
 </layer-tree-group>
@@ -42,7 +42,7 @@
     <rendermaptile>0</rendermaptile>
     <layer_coordinate_transform_info>
       <!--layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="alayerXXXXXXX"/-->
-      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="OSM_Basemap_AXXXXXXX"/>
+      <layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="OSM_Basemap_AXXXXXXX"/><layer_coordinate_transform destAuthId="EPSG:3857" srcAuthId="EPSG:3857" srcDatumTransform="-1" destDatumTransform="-1" layerid="OSM_Basemap_BXXXXXXX"/>
     </layer_coordinate_transform_info>
   </mapcanvas>
   <layer-tree-canvas>
@@ -53,14 +53,14 @@
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
     
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="OSM Basemap A" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="OSM Basemap A" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OSM_Basemap_AXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="OSM_Basemap_AXXXXXXX" visible="0"/>
               </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="OSM Basemap B" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="OSM Basemap B" showFeatureCount="0">
               <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OSM_Basemap_BXXXXXXX"/>
+                <legendlayerfile isInOverview="0" layerid="OSM_Basemap_BXXXXXXX" visible="1"/>
               </filegroup>
             </legendlayer>
   </legend>

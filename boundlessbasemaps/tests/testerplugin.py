@@ -106,7 +106,7 @@ class BasemapsTest(unittest.TestCase):
 
     def _standard_id(self, tpl):
         """Change the layer ids to XXXXXXXX"""
-        tpl = re.sub(r'id="([^\d]+).*"', 'id="\g<1>XXXXXXX"', tpl)
+        tpl = re.sub(r'id="([^\d]+)[^"]*"', 'id="\g<1>XXXXXXX"', tpl)
         tpl = re.sub(
             r'<item>([^\d]+).*?</item>', '<item>\g<1>XXXXXXX</item>', tpl)
         tpl = re.sub(r'<id>([^\d]+).*?</id>', '<id>\g<1>XXXXXXX</id>', tpl)
@@ -144,9 +144,11 @@ class BasemapsTest(unittest.TestCase):
     def test_utils_create_default_auth_project(self):
         """Create the default project with authcfg"""
         self.assertTrue(utils.bcs_supported())
+        visible_maps = ['Mapbox Light', 'Recent Imagery']
         prj = utils.create_default_project(
             utils.get_available_maps(
                 os.path.join(self.data_dir, 'basemaps.json')),
+            visible_maps,
             self.tpl_path,
             'abc123')
         prj = self._standard_id(prj)
@@ -158,9 +160,11 @@ class BasemapsTest(unittest.TestCase):
 
     def test_utils_create_default_project(self):
         """Use a no_auth project template for automated testing of valid project"""
+        visible_maps = ['OSM Basemap B']
         prj = utils.create_default_project(
             utils.get_available_maps(
                 os.path.join(self.data_dir, 'basemaps_no_auth.json')),
+            visible_maps,
             self.tpl_path)
         # Re-generate reference:
         #with open(os.path.join(self.data_dir, 'project_default_no_auth_reference.qgs'), 'wb+') as f:
@@ -354,6 +358,7 @@ def _test_wizard_interactive():
         "providers_uri": PROVIDERS_URI,
         "username": 'my_username',
         "password": 'my_password',
+        "visible": 'Mapbox Light',
     }
     w = SetupWizard(settings)
     import pprint

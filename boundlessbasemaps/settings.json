@@ -14,7 +14,7 @@
 	 "group": "Basemaps reserved configurations"
 	},
 	{"name":"visible",
-	  "label": "Reserved: selected basemaps",
+	  "label": "Reserved: visible basemaps",
 	 "description": "list of ### separated string",
 	 "type": "string",
 	 "default": "",

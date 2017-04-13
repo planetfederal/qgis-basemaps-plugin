@@ -58,6 +58,7 @@ class Basemaps:
         if not pluginSetting('first_time_setup_done'):
             self.iface.initializationCompleted.connect(self.setup)
 
+
     def tr(self, msg):
         return QCoreApplication.translate('boundlessbasemaps', msg)
 
@@ -99,13 +100,17 @@ class Basemaps:
                         # It shouldn't be empty but ...
                         if settings.get('selected') == '':
                             raise BasemapsConfigError(self.tr("You need to select at least one base map!"))
-                        selected = [m for m in settings.get('selected').split('#') if m != '']
+                        selected = [m for m in settings.get('selected').split('###') if m != '']
+                        visible = [m for m in settings.get('visible').split('###') if m != '']
                         template = settings.get('project_template')
                         if template == '' or template is None:
                             template = PROJECT_DEFAULT_TEMPLATE
                         if not os.path.isfile(template):
                             raise BasemapsConfigError(self.tr("The project template is missing or invalid: '%s'" % template))
-                        prj = utils.create_default_project([m for m in settings.get('available_maps') if m['name'] in selected], template, authcfg)
+                        prj = utils.create_default_project([m for m in settings.get('available_maps') if m['name'] in selected],
+                                                           visible,
+                                                           template,
+                                                           authcfg)
                         if prj is None or prj == '':
                             raise BasemapsConfigError(self.tr("Could not create a valid default project from the template '%s'!" % template))
                         # Check for any existing default_project
@@ -119,6 +124,7 @@ class Basemaps:
                         setPluginSetting('enabled', True)
                         setPluginSetting('authcfg', authcfg)
                         setPluginSetting('selected', settings.get('selected'))
+                        setPluginSetting('visible', settings.get('visible'))
                         self.iface.messageBar().pushMessage(self.tr("Basemaps setup success"), self.tr("Basemaps are now ready to use!"), level=QgsMessageBar.INFO)
                     except BasemapsConfigError as e:
                         self.iface.messageBar().pushMessage(self.tr("Basemaps setup error"), e.message, level=QgsMessageBar.CRITICAL)
@@ -131,7 +137,7 @@ class Basemaps:
     def initGui(self):
         helpIcon = QgsApplication.getThemeIcon('/mActionHelpAPI.png')
         self.helpAction = QAction(helpIcon, "Help...", self.iface.mainWindow())
-        self.helpAction.setObjectName("boundlessbasemapsHelp")
+        self.helpAction.setObjectName("basemapsHelp")
         self.helpAction.triggered.connect(lambda: webbrowser.open_new(
                         "file://" + os.path.join(os.path.dirname(__file__), "docs", "html", "index.html")))
         self.iface.addPluginToMenu("Basemaps", self.helpAction)
@@ -139,7 +145,7 @@ class Basemaps:
         # Add setup action
         setupIcon = QgsApplication.getThemeIcon('/mActionOptions.svg')
         self.setupAction = QAction(setupIcon, "Setup wizard...", self.iface.mainWindow())
-        self.setupAction.setObjectName("boundlessbasemapssetup")
+        self.setupAction.setObjectName("basemapsSetup")
         self.setupAction.triggered.connect(self.setup)
         self.iface.addPluginToMenu("Basemaps", self.setupAction)
 
@@ -154,8 +160,8 @@ class Basemaps:
         except:
             pass
 
-        self.iface.removePluginMenu("boundlessbasemaps", self.helpAction)
-        self.iface.removePluginMenu("boundlessbasemaps", self.setupAction)
+        self.iface.removePluginMenu("Basemaps", self.helpAction)
+        self.iface.removePluginMenu("Basemaps", self.setupAction)
         removeSettingsMenu("Basemaps")
         # removeAboutMenu("Basemaps")
 
