@@ -76,7 +76,9 @@ class Basemaps:
             "password": password,
             "authcfg": pluginSetting('authcfg'),
             "project_template": pluginSetting('project_template'),
-            "enabled": pluginSetting('enabled')
+            "enabled": pluginSetting('enabled'),
+            "selected": pluginSetting('selected'),
+            "visible": pluginSetting('visible'),
         }
         wizard = SetupWizard(settings)
         if QDialog.Accepted == wizard.exec_():
@@ -101,7 +103,7 @@ class Basemaps:
                         if settings.get('selected') == '':
                             raise BasemapsConfigError(self.tr("You need to select at least one base map!"))
                         selected = [m for m in settings.get('selected').split('###') if m != '']
-                        visible = [m for m in settings.get('visible').split('###') if m != '']
+                        visible = [m for m in settings.get('visible', "").split('###') if m != '']
                         template = settings.get('project_template')
                         if template == '' or template is None:
                             template = PROJECT_DEFAULT_TEMPLATE

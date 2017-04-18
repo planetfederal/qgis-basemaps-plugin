@@ -37,7 +37,7 @@ except:
     pass
 
 from boundlessbasemaps import utils
-from boundlessbasemaps.gui.setupwizard import SetupWizard
+from boundlessbasemaps.gui.setupwizard import *
 from qgis.core import QgsProject, QgsApplication, QgsAuthManager
 from qgis.PyQt.QtCore import QFileInfo, Qt
 
@@ -282,14 +282,17 @@ class BasemapsTest(unittest.TestCase):
         w.show()
         # Go to CredentialsPage
         w.next()
+        self.assertIs(w.currentPage().__class__, CredentialsPage)
         w.currentPage().username.setText('my_username')
         w.currentPage().password.setText('my_password')
         # Go to map selection page
         w.next()
+        self.assertIs(w.currentPage().__class__, MapSelectionPage)
         ms = w.currentPage()
         # Check Streets
         [c.setCheckState(0, (Qt.Checked if c.text(0).find('Street') != -1 else Qt.Unchecked)) for c in ms.map_choices]
         w.next()
+        self.assertIs(w.currentPage().__class__, ConclusionPage)
         w.accept()
         # Check all
         self.assertTrue(w.settings.get('enabled'))
@@ -316,6 +319,7 @@ class BasemapsTest(unittest.TestCase):
         # Go to map selection page
         w.next()
         ms = w.currentPage()
+        self.assertIs(ms.__class__, MapSelectionPage)
         # Check Streets
 
         [c.setCheckState(0, (Qt.Checked if c.text(0).find('Street') != -1 else Qt.Unchecked)) for c in ms.map_choices]
@@ -359,6 +363,7 @@ def _test_wizard_interactive():
         "username": 'my_username',
         "password": 'my_password',
         "visible": 'Mapbox Light',
+        "selected": 'Mapbox Light',
     }
     w = SetupWizard(settings)
     import pprint

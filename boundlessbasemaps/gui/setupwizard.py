@@ -227,14 +227,14 @@ class MapSelectionPage(WizardPage):
                         root = QTreeWidgetItem(self.tree)
                         root.setText(0, self.tr("All maps"))
                         root.setFlags(root.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
-                        root.setCheckState(0, Qt.Unchecked if len(visible) and m['name'] not in selected else Qt.Checked)
+                        root.setCheckState(0, Qt.Unchecked)
 
                         for p in providers:
                             parent = QTreeWidgetItem(root)
                             parent.setText(0, self._get_provider_display(p))
                             parent.setFlags(parent.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
                             for m in self.available_maps:
-                                if (m['provider'] if 'provider' in m  and m['provider'] else m['attribution']) == p:
+                                if (m['provider'] if 'provider' in m and m['provider'] else m['attribution']) == p:
                                     child = QTreeWidgetItem(parent)
                                     child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
                                     child.setText(0, m['name'])
