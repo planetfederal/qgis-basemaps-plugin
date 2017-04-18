@@ -1,10 +1,12 @@
 .. (c) 2016 Boundless, http://boundlessgeo.com
    This code is licensed under the GPL 2.0 license.
 
-Boundless Basemaps QGIS Plugin's documentation
-========================================
+Boundless Basemaps QGIS Plugin Documentation
+============================================
 
-<Short plugin description>
+The |current_plugin| is a QGIS plugin that allows to set up a collection of
+basemaps to be added to your default project. This way, everytime you open a
+new project, a selected set of basemao layers will be added automatically.
 
 Documentation contents:
 

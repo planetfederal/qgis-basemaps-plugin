@@ -92,3 +92,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Setting documentation
+docs/source/settingsconf.rst
+
+#Pycharm project files
+.idea/

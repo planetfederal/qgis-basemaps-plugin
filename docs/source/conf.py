@@ -222,7 +222,7 @@ latex_documents = [
 
 # Substitutions
 rst_epilog = """
-.. |BLQGIS| replace:: *Bouldless Desktop*
+.. |BLQGIS| replace:: *Boundless Desktop*
 .. |current_plugin| replace:: *Boundless Basemaps*
 """
 
