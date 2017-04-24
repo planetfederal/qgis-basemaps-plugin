@@ -44,8 +44,9 @@ A message in QGIS's main window informs that the setup was successful.
 
 .. figure:: img/basemaps_success_setup.png
 
-Another message informs that **A backup copy of the previous default project
-has been saved to /root/.qgis2//project_default-2017-04-13-01:32:30.qgs**.
+If you already had a default project set, another message informs that **A
+backup copy of the previous default project has been saved to
+/root/.qgis2//project_default-2017-04-13-01:32:30.qgs**.
 
 Now, when you open a new project, the default project will load all selected
 layers, showing only the ones you decided to be visible.
