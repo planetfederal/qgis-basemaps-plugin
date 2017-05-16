@@ -14,7 +14,7 @@
 	 "group": "Basemaps reserved configurations"
 	},
 	{"name":"visible",
-	  "label": "Reserved: visible basemaps",
+	  "label": "Reserved: selected basemaps",
 	 "description": "list of ### separated string",
 	 "type": "string",
 	 "default": "",
@@ -31,21 +31,21 @@
 	 "label": "BCS Token URI",
 	 "description": "URI for Token authentication",
 	 "type": "string",
-	 "default": "https://api.test.boundlessgeo.io/v1/token/oauth/",
+	 "default": "https://api.boundlessgeo.io/v1/token/oauth/",
 	 "group": "Basemaps advanced configuration"
     },
 	{"name":"maps_uri",
 	 "label": "BCS available maps URI",
 	 "description": "URI to get the available base maps",
 	 "type": "string",
-	 "default": "https://api.test.boundlessgeo.io/v1/basemaps/",
+	 "default": "https://api.boundlessgeo.io/v1/basemaps/",
 	 "group": "Basemaps advanced configuration"
     },
 	{"name":"providers_uri",
 	 "label": "BCS available providers URI",
 	 "description": "URI to get the available providers",
 	 "type": "string",
-	 "default": "https://api.test.boundlessgeo.io/v1/basemaps/providers",
+	 "default": "https://api.boundlessgeo.io/v1/basemaps/providers",
 	 "group": "Basemaps advanced configuration"
     },
 	{"name":"first_time_setup_done",
