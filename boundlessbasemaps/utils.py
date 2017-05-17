@@ -173,9 +173,8 @@ def create_default_project(available_maps, visible_maps, project_template, authc
 
 def layer_is_supported(lyr):
     """Check wether the layer is supported by QGIS or by this plugin
-    inverted y and vector tiles are not supported"""
-    return (lyr['endpoint'].find('{-y}') == -1 and
-            lyr['tileFormat'] == 'PNG' and
+    by excluding vector tiles"""
+    return (lyr['tileFormat'] == 'PNG' and
             lyr['standard'] == 'XYZ')
 
 

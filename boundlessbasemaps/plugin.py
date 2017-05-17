@@ -96,42 +96,56 @@ class Basemaps:
                                 utils.get_oauth_authcfg(settings.get('authcfg')) is not None):
                             authcfg = settings.get('authcfg')
                         else:  # try with defaults
-                            authcfg = utils.setup_oauth(settings.get('username'), settings.get('password'), settings.get('token_uri'))
+                            authcfg = utils.setup_oauth(settings.get('username'), settings.get(
+                                'password'), settings.get('token_uri'))
                         if authcfg is None:
-                            raise BasemapsConfigError(self.tr("Could not find or create a valid authentication configuration!"))
+                            raise BasemapsConfigError(
+                                self.tr("Could not find or create a valid authentication configuration!"))
                         # It shouldn't be empty but ...
                         if settings.get('selected') == '':
-                            raise BasemapsConfigError(self.tr("You need to select at least one base map!"))
-                        selected = [m for m in settings.get('selected').split('###') if m != '']
-                        visible = [m for m in settings.get('visible', "").split('###') if m != '']
+                            raise BasemapsConfigError(
+                                self.tr("You need to select at least one base map!"))
+                        selected = [m for m in settings.get(
+                            'selected').split('###') if m != '']
+                        visible = [m for m in settings.get(
+                            'visible', "").split('###') if m != '']
                         template = settings.get('project_template')
                         if template == '' or template is None:
                             template = PROJECT_DEFAULT_TEMPLATE
                         if not os.path.isfile(template):
-                            raise BasemapsConfigError(self.tr("The project template is missing or invalid: '%s'" % template))
+                            raise BasemapsConfigError(
+                                self.tr("The project template is missing or invalid: '%s'" % template))
                         prj = utils.create_default_project([m for m in settings.get('available_maps') if m['name'] in selected],
                                                            visible,
                                                            template,
                                                            authcfg)
                         if prj is None or prj == '':
-                            raise BasemapsConfigError(self.tr("Could not create a valid default project from the template '%s'!" % template))
+                            raise BasemapsConfigError(self.tr(
+                                "Could not create a valid default project from the template '%s'!" % template))
                         # Check for any existing default_project
                         if os.path.isfile(utils.default_project_path()):
-                            default_project_backup = utils.default_project_path().replace('.qgs', '-%s.qgs' % datetime.now().strftime('%Y-%m-%d-%H:%M:%S'))
-                            os.rename(utils.default_project_path(), default_project_backup)
-                            self.iface.messageBar().pushMessage(self.tr("Basemaps setup"), self.tr("A backup copy of the previous default project has been saved to %s" % default_project_backup), level=QgsMessageBar.INFO)
+                            default_project_backup = utils.default_project_path().replace(
+                                '.qgs', '-%s.qgs' % datetime.now().strftime('%Y-%m-%d-%H:%M:%S'))
+                            os.rename(utils.default_project_path(),
+                                      default_project_backup)
+                            self.iface.messageBar().pushMessage(self.tr("Basemaps setup"), self.tr(
+                                "A backup copy of the previous default project has been saved to %s" % default_project_backup), level=QgsMessageBar.INFO)
                         if not utils.set_default_project(prj):
-                            raise BasemapsConfigError(self.tr("Could not write the default project on disk!"))
+                            raise BasemapsConfigError(
+                                self.tr("Could not write the default project on disk!"))
                         # Store settings
                         setPluginSetting('enabled', True)
                         setPluginSetting('authcfg', authcfg)
                         setPluginSetting('selected', settings.get('selected'))
                         setPluginSetting('visible', settings.get('visible'))
-                        self.iface.messageBar().pushMessage(self.tr("Basemaps setup success"), self.tr("Basemaps are now ready to use!"), level=QgsMessageBar.INFO)
+                        self.iface.messageBar().pushMessage(self.tr("Basemaps setup success"), self.tr(
+                            "Basemaps are now ready to use!"), level=QgsMessageBar.INFO)
                     except BasemapsConfigError as e:
-                        self.iface.messageBar().pushMessage(self.tr("Basemaps setup error"), e.message, level=QgsMessageBar.CRITICAL)
+                        self.iface.messageBar().pushMessage(self.tr("Basemaps setup error"),
+                                                            e.message, level=QgsMessageBar.CRITICAL)
                     except Exception as e:
-                        self.iface.messageBar().pushMessage(self.tr("Basemaps unhandled exception"), "%s" % e, level=QgsMessageBar.CRITICAL)
+                        self.iface.messageBar().pushMessage(self.tr("Basemaps unhandled exception"),
+                                                            "%s" % e, level=QgsMessageBar.CRITICAL)
         else:  # Cancel or close
             pass
         setPluginSetting('first_time_setup_done', True)
