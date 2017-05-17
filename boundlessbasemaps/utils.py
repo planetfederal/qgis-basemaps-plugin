@@ -31,6 +31,7 @@ from qgis.core import (QgsAuthManager, QgsMapLayer, QgsRasterLayer,
                        QgsAuthMethodConfig, QgsApplication)
 from qgis.PyQt.QtCore import QEventLoop, QUrl, QSettings
 from qgis.gui import QgsFileDownloader
+from qgis.core import QgsCoordinateReferenceSystem
 
 
 AUTHCFG_ID = "conect1"  # test id
@@ -132,12 +133,14 @@ def create_default_project(available_maps, visible_maps, project_template, authc
     for m in available_maps:
         connstring = u'type=xyz&url=%(url)s'
         if authcfg is not None:
-            connstring += u'&authcfg=%(authcfg)s'
+            connstring = u'authcfg=%(authcfg)s&' + connstring
         layer = QgsRasterLayer(connstring % {
             'url': urllib2.quote(m['endpoint']),
             'authcfg': authcfg,
-            'name': m['name'],
         }, m['name'], 'wms')
+        # I've no idea why the following is required even if the crs is specified 
+        # in the layer definition
+        layer.setCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
         layers.append(layer)
     if len(layers):
         xml = QgsMapLayer.asLayerDefinition(layers)

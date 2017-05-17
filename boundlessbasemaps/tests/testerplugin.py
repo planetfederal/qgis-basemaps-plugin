@@ -105,12 +105,13 @@ class BasemapsTest(unittest.TestCase):
                 pass
 
     def _standard_id(self, tpl):
-        """Change the layer ids to XXXXXXXX"""
+        """Change the layer ids to XXXXXXXX and also clear extents"""
         tpl = re.sub(r'id="([^\d]+)[^"]*"', 'id="\g<1>XXXXXXX"', tpl)
         tpl = re.sub(
             r'<item>([^\d]+).*?</item>', '<item>\g<1>XXXXXXX</item>', tpl)
         tpl = re.sub(r'<id>([^\d]+).*?</id>', '<id>\g<1>XXXXXXX</id>', tpl)
         tpl = re.sub(r'authcfg=[a-z0-9]+', 'authcfg=YYYYYY', tpl)
+        tpl = re.sub(r'(xmin|ymin|xmax|ymax)>[^<]+<.*', '\g<1>>ZZZZZ</\g<1>>', tpl)
         return tpl
 
     def test_utils_get_available_maps(self):

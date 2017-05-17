@@ -38,10 +38,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>-21039383.75992870703339577</xmin>
-      <ymin>-17665183.74920467659831047</ymin>
-      <xmax>21039383.75992871448397636</xmax>
-      <ymax>17665183.74920468404889107</ymax>
+      <xmin>ZZZZZ</xmin>
+      <ymin>ZZZZZ</ymin>
+      <xmax>ZZZZZ</xmax>
+      <ymax>ZZZZZ</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -115,27 +115,27 @@
   <projectlayers>
       <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Mapbox_Satellite_StreetsXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite-streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite-streets/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Mapbox Satellite Streets</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -160,27 +160,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Mapbox_SatelliteXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/satellite/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Mapbox Satellite</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -205,27 +205,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Mapbox_OutdoorsXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/outdoors/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/outdoors/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Mapbox Outdoors</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -250,27 +250,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Mapbox_LightXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/light/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/light/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Mapbox Light</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -295,27 +295,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Mapbox_DarkXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/dark/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/dark/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Mapbox Dark</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -340,27 +340,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Mapbox_StreetsXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/streets/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/mapbox/streets/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Mapbox Streets</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -385,27 +385,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Boundless_BasemapXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/boundless/osm/%7Bz%7D/%7Bx%7D/%7B-y%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/boundless/osm/%7Bz%7D/%7Bx%7D/%7B-y%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Boundless Basemap</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
@@ -430,27 +430,27 @@
   </maplayer>
   <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
    <extent>
-    <xmin>-180</xmin>
-    <ymin>-85.05112877980660357</ymin>
-    <xmax>180</xmax>
-    <ymax>85.05112877980660357</ymax>
+    <xmin>ZZZZZ</xmin>
+    <ymin>ZZZZZ</ymin>
+    <xmax>ZZZZZ</xmax>
+    <ymax>ZZZZZ</ymax>
    </extent>
    <id>Recent_ImageryXXXXXXX</id>
-   <datasource>type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/dg/recent/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;authcfg=YYYYYY</datasource>
+   <datasource>authcfg=YYYYYY&amp;type=xyz&amp;url=http%3A//api.test.boundlessgeo.io/v1/basemaps/dg/recent/%7Bz%7D/%7Bx%7D/%7By%7D.png</datasource>
    <keywordList>
     <value></value>
    </keywordList>
    <layername>Recent Imagery</layername>
    <srs>
     <spatialrefsys>
-     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-     <srsid>3452</srsid>
-     <srid>4326</srid>
-     <authid>EPSG:4326</authid>
-     <description>WGS 84</description>
-     <projectionacronym>longlat</projectionacronym>
+     <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+     <srsid>3857</srsid>
+     <srid>3857</srid>
+     <authid>EPSG:3857</authid>
+     <description>WGS 84 / Pseudo Mercator</description>
+     <projectionacronym>merc</projectionacronym>
      <ellipsoidacronym>WGS84</ellipsoidacronym>
-     <geographicflag>true</geographicflag>
+     <geographicflag>false</geographicflag>
     </spatialrefsys>
    </srs>
    <customproperties>
