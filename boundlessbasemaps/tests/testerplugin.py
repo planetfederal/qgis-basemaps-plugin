@@ -120,7 +120,7 @@ class BasemapsTest(unittest.TestCase):
                                                      'basemaps.json'))
         names = [m['name'] for m in maps]
         names.sort()
-        self.assertEqual(names, [
+        self.assertEqual(names, [u'Boundless Basemap',
                                  u'Mapbox Dark',
                                  u'Mapbox Light',
                                  u'Mapbox Outdoors',
