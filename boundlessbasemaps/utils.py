@@ -191,7 +191,7 @@ def get_available_providers(providers_uri):
     # For testing purposes, we can also access to a json file directly
     if not providers_uri.startswith('http'):
         try:
-            j = json.load(open(providers_uri), encoding='utf-8')
+            j = json.load(open(providers_uri, encoding='utf-8'))
         except:
             j = json.load(open(providers_uri))
     else:
