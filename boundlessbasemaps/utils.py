@@ -190,7 +190,10 @@ def get_available_providers(providers_uri):
     apparently this API method does not require auth"""
     # For testing purposes, we can also access to a json file directly
     if not providers_uri.startswith('http'):
-        j = json.load(open(providers_uri, encoding='utf-8'))
+        try:
+            j = json.load(open(providers_uri), encoding='utf-8')
+        except:
+            j = json.load(open(providers_uri))
     else:
         t = mktemp()
         q = QgsFileDownloader(QUrl(providers_uri), t)

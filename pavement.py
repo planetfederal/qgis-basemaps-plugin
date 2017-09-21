@@ -135,7 +135,7 @@ def make_zip(zipFile, options):
     def filter_excludes(files):
         if not files: return []
         # to prevent descending into dirs, modify the list in place
-        for i in xrange(len(files) - 1, -1, -1):
+        for i in range(len(files) - 1, -1, -1):
             f = files[i]
             if exclude(f):
                 files.remove(f)
@@ -163,7 +163,7 @@ def create_settings_docs(options):
         grouped[setting["group"]].append(setting)
     with open (doc_file, "w") as f:
         f.write("Plugin settings\n###############\n\nThe plugin can be adjusted using the following settings, to be found in its settings dialog:\n")
-        for groupName, group in grouped.iteritems():
+        for groupName, group in grouped.items():
             f.write("\n* %s \n" % groupName)
             for setting in group:
                 f.write("\t - *%s*: %s\n\n" % (setting["label"], setting["description"]))
