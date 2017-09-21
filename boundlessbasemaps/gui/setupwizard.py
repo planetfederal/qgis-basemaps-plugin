@@ -30,7 +30,13 @@ from qgis.PyQt.QtWidgets import (QWizard, QWizardPage, QLabel, QVBoxLayout,
                                  QButtonGroup, QRadioButton, QGroupBox,
                                  QTreeWidget, QTreeWidgetItem, QHeaderView,
                                  QHBoxLayout, QWidget)
-from qgis.PyQt.QtGui import QPixmap, QIcon, QApplication
+
+from qgis.PyQt.QtGui import QPixmap, QIcon
+try:
+    from qgis.PyQt.QtGui import QApplication
+except:
+    from qgis.PyQt.QtWidgets import QApplication
+
 from qgis.PyQt.QtCore import Qt, QSize
 from boundlessbasemaps import utils
 

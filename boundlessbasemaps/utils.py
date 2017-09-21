@@ -25,7 +25,11 @@ __copyright__ = '(C) 2017 Boundless, http://boundlessgeo.com'
 
 import os
 import json
-import urllib2
+try:
+    from urllib2 import quote
+except:
+    from urllib.parse import quote
+
 from tempfile import mktemp
 from qgis.core import (QgsAuthManager, QgsMapLayer, QgsRasterLayer,
                        QgsAuthMethodConfig, QgsApplication)
@@ -135,7 +139,7 @@ def create_default_project(available_maps, visible_maps, project_template, authc
         if authcfg is not None:
             connstring = u'authcfg=%(authcfg)s&' + connstring
         layer = QgsRasterLayer(connstring % {
-            'url': urllib2.quote(m['endpoint']),
+            'url': quote(m['endpoint']),
             'authcfg': authcfg,
         }, m['name'], 'wms')
         # I've no idea why the following is required even if the crs is specified 
@@ -186,7 +190,7 @@ def get_available_providers(providers_uri):
     apparently this API method does not require auth"""
     # For testing purposes, we can also access to a json file directly
     if not providers_uri.startswith('http'):
-        j = json.load(open(providers_uri))
+        j = json.load(open(providers_uri, encoding='utf-8'))
     else:
         t = mktemp()
         q = QgsFileDownloader(QUrl(providers_uri), t)

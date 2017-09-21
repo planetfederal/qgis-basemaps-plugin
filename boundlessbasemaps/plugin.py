@@ -27,7 +27,8 @@ from qgis.PyQt.QtWidgets import QAction, QDialog, QMessageBox
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.core import QgsApplication
 from qgis.gui import QgsMessageBar
-from qgiscommons.settings import addSettingsMenu, removeSettingsMenu, readSettings, pluginSetting, setPluginSetting
+from qgiscommons2.settings import readSettings, pluginSetting, setPluginSetting
+from qgiscommons2.gui.settings import addSettingsMenu, removeSettingsMenu
 from boundlessbasemaps import utils
 
 PROJECT_DEFAULT_TEMPLATE = os.path.join(os.path.dirname(__file__), 'project_default.qgs.tpl')

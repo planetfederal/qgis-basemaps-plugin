@@ -5,10 +5,10 @@
 #
 
 import os
+import sys
 import fnmatch
 import shutil
 import zipfile
-import StringIO
 import requests
 import json
 from collections import defaultdict
@@ -45,7 +45,6 @@ options(
     ('clean', 'c', 'clean out dependencies first'),
 ])
 def setup(options):
-    '''install dependencies'''
     clean = getattr(options, 'clean', False)
     ext_libs = options.plugin.ext_libs
     ext_src = options.plugin.ext_src
@@ -53,30 +52,18 @@ def setup(options):
         ext_libs.rmtree()
     ext_libs.makedirs()
     runtime, test = read_requirements()
-
-    tmpCommonsPath = path(__file__).dirname() / "qgiscommons"
-    dst = ext_libs / "qgiscommons"
-    if dst.exists():
-        dst.rmtree()
-    r = requests.get("https://github.com/boundlessgeo/lib-qgis-commons/archive/master.zip", stream=True)
-    z = zipfile.ZipFile(StringIO.StringIO(r.content))
-    z.extractall(path=tmpCommonsPath.abspath())
-    src = tmpCommonsPath / "lib-qgis-commons-master" / "qgiscommons"
-    src.copytree(dst.abspath())
-    tmpCommonsPath.rmtree()
-
-    try:
-        import pip
-    except:
-        error('FATAL: Unable to import pip, please install it first!')
-        sys.exit(1)
-
     os.environ['PYTHONPATH']=ext_libs.abspath()
     for req in runtime + test:
-        pip.main(['install',
-                  '-t',
-                  ext_libs.abspath(),
-                  req])
+        if sys.version_info >= (3, 0):
+            sh('easy_install3 -a -d %(ext_libs)s %(dep)s' % {
+                'ext_libs' : ext_libs.abspath(),
+                'dep' : req
+            })
+        else:
+            sh('easy_install -a -d %(ext_libs)s %(dep)s' % {
+                'ext_libs' : ext_libs.abspath(),
+                'dep' : req
+            })
 
 
 def read_requirements():
