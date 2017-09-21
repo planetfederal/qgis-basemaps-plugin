@@ -147,7 +147,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertEqual(names, [u'boundless', u'digitalglobe', u'mapbox', u'planet'])
 
 
-    @unittest.skip
+    @unittest.skip("No OAuth")
     def test_utils_create_default_auth_project(self):
         """Create the default project with authcfg"""
         visible_maps = ['Mapbox Light', 'Recent Imagery']
@@ -164,7 +164,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertEqual(
             prj, open(os.path.join(self.data_dir, 'project_default_reference.qgs'), 'rb').read())
 
-    @unittest.skip
+    @unittest.skip("No OAuth")
     def test_utils_create_default_project(self):
         """Use a no_auth project template for automated testing of valid project"""
         visible_maps = ['OSM Basemap B']
@@ -276,7 +276,7 @@ class BasemapsTest(unittest.TestCase):
         self.assertIsNone(w.settings.get('password'))
 
 
-    @unittest.skip
+    @unittest.skip("No OAuth")
     def test_wizard_pre_defined_invalid_authcfg(self):
         """Test the wizard dialog with invalid authcfg"""
         # Forge some settings:
