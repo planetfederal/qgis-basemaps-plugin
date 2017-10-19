@@ -166,7 +166,7 @@ def create_settings_docs(options):
                 "Plugin settings\n===============\n\n"
                 "The plugin can be adjusted using the following settings, "
                 "to be found in its settings dialog (|path_to_settings|).\n")
-        for groupName, group in grouped.iteritems():
+        for groupName, group in grouped.items():
             section_marks = "-" * len(groupName)
             f.write("\n%s\n%s\n\n"
                     ".. list-table::\n"
