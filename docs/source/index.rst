@@ -11,8 +11,9 @@ new project, a selected set of basemap layers will be added automatically.
 Documentation contents:
 
 .. toctree::
+   :glob:
    :maxdepth: 2
 
    installation
    usage
-   settingsconf
+   *

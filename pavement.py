@@ -155,9 +155,11 @@ def make_zip(zipFile, options):
 def create_settings_docs(options):
     settings_file = path(options.plugin.name) / "settings.json"
     doc_file = options.sphinx.sourcedir / "settingsconf.rst"
-    with open(settings_file) as f:
-        settings = json.load(f)
-
+    try:
+        with open(settings_file) as f:
+            settings = json.load(f)
+    except:
+        return
     grouped = defaultdict(list)
     for setting in settings:
         grouped[setting["group"]].append(setting)
@@ -184,23 +186,28 @@ def create_settings_docs(options):
 
 @task
 @cmdopts([
-    ('sphinx_theme=', 's', 'Sphinx theme to use in documentation')
+    ('clean', 'c', 'clean out built artifacts first'),
+    ('sphinx_theme=', 's', 'Sphinx theme to use in documentation'),
 ])
 def builddocs(options):
     try:
+        # May fail if not in a git repo
         sh("git submodule init")
         sh("git submodule update")
     except:
         pass
+
     create_settings_docs(options)
+
     if getattr(options, 'sphinx_theme', False):
         # overrides default theme by the one provided in command line
         set_theme = "-D html_theme='{}'".format(options.sphinx_theme)
     else:
         # Uses default theme defined in conf.py
         set_theme = ""
-    sh("sphinx-build -a {} {} {}".format(set_theme, options.sphinx.sourcedir,
-                                         options.sphinx.builddir))
+    sh("sphinx-build -a {} {} {}/html".format(set_theme,
+                                              options.sphinx.sourcedir,
+                                              options.sphinx.builddir))
 
 
 @task
