@@ -162,24 +162,45 @@ def create_settings_docs(options):
     for setting in settings:
         grouped[setting["group"]].append(setting)
     with open (doc_file, "w") as f:
-        f.write("Plugin settings\n###############\n\nThe plugin can be adjusted using the following settings, to be found in its settings dialog:\n")
-        for groupName, group in grouped.items():
-            f.write("\n* %s \n" % groupName)
+        f.write(".. _plugin_settings:\n\n"
+                "Plugin settings\n===============\n\n"
+                "The plugin can be adjusted using the following settings, "
+                "to be found in its settings dialog (|path_to_settings|).\n")
+        for groupName, group in grouped.iteritems():
+            section_marks = "-" * len(groupName)
+            f.write("\n%s\n%s\n\n"
+                    ".. list-table::\n"
+                    "   :header-rows: 1\n"
+                    "   :stub-columns: 1\n"
+                    "   :widths: 20 80\n"
+                    "   :class: non-responsive\n\n"
+                    "   * - Option\n"
+                    "     - Description\n"
+                    % (groupName, section_marks))
             for setting in group:
-                f.write("\t - *%s*: %s\n\n" % (setting["label"], setting["description"]))
+                f.write("   * - %s\n"
+                        "     - %s\n"
+                        % (setting["label"], setting["description"]))
 
 @task
+@cmdopts([
+    ('sphinx_theme=', 's', 'Sphinx theme to use in documentation')
+])
 def builddocs(options):
-    try: #this might fail if the plugin code is not in a git repo
+    try:
         sh("git submodule init")
         sh("git submodule update")
     except:
         pass
     create_settings_docs(options)
-    cwd = os.getcwd()
-    os.chdir(options.sphinx.docroot)
-    sh("make html")
-    os.chdir(cwd)
+    if getattr(options, 'sphinx_theme', False):
+        # overrides default theme by the one provided in command line
+        set_theme = "-D html_theme='{}'".format(options.sphinx_theme)
+    else:
+        # Uses default theme defined in conf.py
+        set_theme = ""
+    sh("sphinx-build -a {} {} {}".format(set_theme, options.sphinx.sourcedir,
+                                         options.sphinx.builddir))
 
 
 @task
