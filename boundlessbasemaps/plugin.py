@@ -66,7 +66,7 @@ class Basemaps:
     def setup(self, username=None, password=None):
         """Configuration wizard"""
         # Preliminary check:
-        if not utils.bcs_supported():
+        if not utils.bcs_supported() and not os.environ.get('TRAVIS'):
             return QMessageBox.warning(None, self.tr("Basemaps error"), self.tr("Your QGIS installation does not meet the minimum requirements to run this plugin. Please check if the OAUth2 authentication plugin is installed and have a look to the documentation for further information."))
         from gui.setupwizard import SetupWizard
         settings = {
