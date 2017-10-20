@@ -34,7 +34,10 @@ from tempfile import mktemp
 from qgis.core import (QgsAuthManager, QgsMapLayer, QgsRasterLayer,
                        QgsAuthMethodConfig, QgsApplication)
 from qgis.PyQt.QtCore import QEventLoop, QUrl, QSettings
-from qgis.gui import QgsFileDownloader
+try:
+    from qgis.gui import QgsFileDownloader
+except:
+    from qgis.core import QgsFileDownloader
 from qgis.core import QgsCoordinateReferenceSystem
 
 
