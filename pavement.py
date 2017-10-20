@@ -152,6 +152,7 @@ def make_zip(zipFile, options):
             relpath = os.path.join(options.plugin.name, "docs", os.path.relpath(root, options.sphinx.builddir))
             zipFile.write(path(root) / f, path(relpath) / f)
 
+
 def create_settings_docs(options):
     settings_file = path(options.plugin.name) / "settings.json"
     doc_file = options.sphinx.sourcedir / "settingsconf.rst"
@@ -184,6 +185,7 @@ def create_settings_docs(options):
                         "     - %s\n"
                         % (setting["label"], setting["description"]))
 
+
 @task
 @cmdopts([
     ('clean', 'c', 'clean out built artifacts first'),
@@ -196,9 +198,9 @@ def builddocs(options):
         sh("git submodule update")
     except:
         pass
-
     create_settings_docs(options)
-
+    if getattr(options, 'clean', False):
+        options.sphinx.builddir.rmtree()
     if getattr(options, 'sphinx_theme', False):
         # overrides default theme by the one provided in command line
         set_theme = "-D html_theme='{}'".format(options.sphinx_theme)
